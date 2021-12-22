@@ -10,27 +10,27 @@ const sessionController = require('../controllers/sessionController')
 
 router.get('/', function (req, res) {
     var session = req.app.sessions;
-    res.render('home', { loggedIn: session.userid});
-    
+    res.render('home', { loggedIn: session.userid });
+
 });
 
 router.get('/login', function (req, res) {
-    if(req.query.alert){
+    if (req.query.alert) {
         let alert = req.query.alert;
-        res.render('login', {alert: alert});
+        res.render('login', { alert: alert });
     }
     else {
-        res.render('login', {alert: null})
+        res.render('login', { alert: null })
     }
-    
+
 });
 router.get('/createaccount', function (req, res) {
-    if(req.query.alert){
+    if (req.query.alert) {
         let alert = req.query.alert;
-        res.render('createaccount', {alert: alert});
+        res.render('createaccount', { alert: alert });
     }
     else {
-        res.render('createaccount', {alert: null})
+        res.render('createaccount', { alert: null })
     }
 });
 router.post('/createaccount', userController.newUser);
@@ -38,20 +38,18 @@ router.post('/login', userController.login)
 router.get('/logout', sessionController.endSession);
 router.get('/user/servers/:userid', async function (req, res) {
     var session = await req.app.sessions;
-    console.log(`UserID: ${session.userid} | Requested ID: ${req.params.userid}`)
-    if (req.params.userid == session.userid){
+    if (req.params.userid == session.userid) {
         const user = await userController.getUserByID(session.userid)
-        res.render('profile', {loggedIn: session.userid, useremail: user.email})
+        res.render('profile', { loggedIn: session.userid, useremail: user.email })
     }
     else {
-        console.log(`INCORRECT USER LOGGED IN`)
-        res.render('404', { loggedIn: session.userid});
+        res.render('404', { loggedIn: session.userid });
     }
 });
 
 
-router.get('*', function(req, res){
+router.get('*', function (req, res) {
     var session = req.app.sessions;
-    res.render('404', { loggedIn: session.userid});
-  });
+    res.render('404', { loggedIn: session.userid });
+});
 module.exports = router;
