@@ -3,10 +3,21 @@
 
 <head>
     <title>Home</title>
+    <%- include('components/generalcss') %>
+    <%- include('components/generalscript') %>
 </head>
 
-<body style="overflow: hidden;">
+<body>
+    <div class="container-fluid">
+        <% if (loggedIn) { %>
+            <%- include('components/loggedinnavbar') %>
+        <% } else { %>
+            <%- include('components/navbar') %>
+        <% } %>
+        
+    </div>
     Hello, world!
+    
 </body>
 
 </html>
