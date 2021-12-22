@@ -1,42 +1,45 @@
 <head>
-    <link rel="stylesheet" href="/font/bootstrap-icons.css"/>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/general.css">
+  <link rel="stylesheet" href="/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/general.css">
 </head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Ninth navbar example">
-    <div class="container-xl">
-      <a class="navbar-brand" href="/">LOGOHERE</a>
-      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <div class="container-xl">
+    <a class="navbar-brand" href="/">LOGOHERE</a>
+    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+      aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="navbar-collapse collapse" id="navbar">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/"><i class="bi mx-2 bi-house-fill"></i>Home</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="gamesdropdown" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi mx-2 bi-controller"></i>Games</a>
-            <ul class="dropdown-menu" aria-labelledby="gamesdropdown">
-              <li><a class="dropdown-item" href="minecraftservers">Minecraft</a></li>
-            </ul>
-          </li>
-        </ul>
-        <form class="d-flex me-3">
-            <input class="form-control me-2" type="text" placeholder="Search Server" aria-label="Search">
-            <button class="btn btn-outline-primary" type="submit">Search</button>
-        </form>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/"><i class="bi mx-2 bi-house-fill"></i>Home</a>
+        </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="profiledropdown" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi mx-2 bi-person-fill" style="font-size: 1.5rem;"></i></a>
-            <ul class="dropdown-menu" aria-labelledby="profiledropdown">
-              <li><a class="dropdown-item" href="user/servers/<%- loggedIn -%> ">My Servers</a></li>
-              <li><a class="dropdown-item" href="logout">Logout</a></li>
-            </ul>
-          </li>
-      </div>
+          <a class="nav-link dropdown-toggle" href="" id="gamesdropdown" data-bs-toggle="dropdown"
+            aria-expanded="false"><i class="bi mx-2 bi-controller"></i>Games</a>
+          <ul class="dropdown-menu" aria-labelledby="gamesdropdown">
+            <li><a class="dropdown-item" href="minecraftservers">Minecraft</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex me-3">
+        <input class="form-control me-2" type="text" placeholder="Search Server" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </form>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="" id="profiledropdown" data-bs-toggle="dropdown"
+          aria-expanded="false"><i class="bi mx-2 bi-person-fill" style="font-size: 1.5rem;"></i></a>
+        <ul class="dropdown-menu" aria-labelledby="profiledropdown">
+          <li><a class="dropdown-item" href="user/servers/<%- loggedIn -%> ">My Servers</a></li>
+          <li><a class="dropdown-item" href="logout">Logout</a></li>
+        </ul>
+      </li>
     </div>
-  </nav>
-  <footer>
-    <script src="/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-  </footer>
+  </div>
+</nav>
+<footer>
+  <script src="/jquery.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+</footer>
