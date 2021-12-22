@@ -8,12 +8,13 @@
 </head>
 
 <body>
+    <% if (loggedIn) { %>
+        <%- include('components/loggedinnavbar') %>
+    <% } else { %>
+        <%- include('components/navbar') %>
+    <% } %>
     <div class="container-fluid">
-        <% if (loggedIn) { %>
-            <%- include('components/loggedinnavbar') %>
-        <% } else { %>
-            <%- include('components/navbar') %>
-        <% } %>
+        
         
     </div>
     Hello, world!
