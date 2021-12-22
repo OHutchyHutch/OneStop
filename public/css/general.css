@@ -1,4 +1,60 @@
+:root {
+    --background: #0b0C10;
+    --lightbackground: #1F2833;
+    --foggywhite: #C5C6C7;
+    --bluehighlight: #66fcf2bd;
+    --bluestatic: #45A29E;
+}
 body {
     overflow-x: hidden;
-    background-color: gray;
+    background-color: var(--background);
+    color: var(--foggywhite);
+}
+.bg-dark {
+    background-color: var(--lightbackground) !important;
+    color: var(--foggywhite) !important;
+}
+.btn-outline-primary {
+    border-color: var(--bluestatic);
+    color: var(--foggywhite);
+}
+.btn-outline-primary:hover{
+    border-color: var(--bluehighlight);
+    background-color: var(--lightbackground);
+    color: var(--bluehighlight);
+}
+.btn-primary{
+    color: var(--foggywhite);
+    background-color: var(--bluestatic);
+    border-color: var(--bluestatic);
+}
+.btn-primary:hover{
+    background-color: var(--bluehighlight);
+}
+.card {
+    background-color: var(--lightbackground);
+    color: var(--foggywhite);
+}
+.bi, .nav-link::after, .nav-link {
+    color: var(--foggywhite) !important;
+    transition-duration: .25s !important;
+}
+li {
+    list-style-type: none;
+    color: var(--foggywhite);
+} 
+.bi:hover, .nav-link:hover:after, .nav-link:hover {
+    color: var(--bluehighlight) !important;
+}
+.dropdown-menu {
+    background-color: var(--lightbackground);
+    
+}
+.dropdown-item {
+    color:var(--foggywhite);
+    transition-duration: .25s;
+}
+.dropdown-item:hover {
+    background-color: var(--background);
+    color: var(--bluehighlight);
 }
