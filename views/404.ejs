@@ -2,11 +2,20 @@
 <html>
 
 <head>
-    <title>Home</title>
+    <title>404 Error</title>
+    <%- include('components/generalcss') %>
+    <%- include('components/generalscript') %>
 </head>
 
 <body style="overflow: hidden;">
-    404 ERROR
+    <% if (loggedIn) { %>
+        <%- include('components/loggedinnavbar') %>
+    <% } else { %>
+        <%- include('components/navbar') %>
+    <% } %>
+    <div class="alert alert-danger text-center mt-3" role="alert">
+        <i class="bi mx-2 bi-exclamation-triangle-fill"></i>404 ERROR: PAGE NOT FOUND
+    </div>
 </body>
 
 </html>

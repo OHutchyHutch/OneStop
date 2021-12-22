@@ -36,4 +36,9 @@ router.post('/createaccount', userController.newUser);
 router.post('/login', userController.validateUser);
 router.get('/logout', userController.logoutUser);
 
+
+router.get('*', function(req, res){
+    var session = req.app.sessions;
+    res.render('404', { loggedIn: session.userid});
+  });
 module.exports = router;
