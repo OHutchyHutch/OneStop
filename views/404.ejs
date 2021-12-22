@@ -3,19 +3,20 @@
 
 <head>
     <title>404 Error</title>
-    <%- include('components/generalcss') %>
-    <%- include('components/generalscript') %>
 </head>
 
-<body style="overflow: hidden;">
+<body>
     <% if (loggedIn) { %>
         <%- include('components/loggedinnavbar') %>
     <% } else { %>
         <%- include('components/navbar') %>
     <% } %>
-    <div class="alert alert-danger text-center mt-3" role="alert">
-        <i class="bi mx-2 bi-exclamation-triangle-fill"></i>404 ERROR: PAGE NOT FOUND
+    <div class="container-fluid">
+        <div class="alert alert-danger text-center mt-3" role="alert">
+            <i class="bi mx-2 bi-check-circle-fill"></i>404 Error: I am sorry, this page does not exist!
+        </div>
     </div>
+    
 </body>
 
 </html>

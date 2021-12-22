@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/userController');
+const sessionController = require('../controllers/sessionController')
 
 
 router.get('/', function (req, res) {
@@ -33,8 +34,20 @@ router.get('/createaccount', function (req, res) {
     }
 });
 router.post('/createaccount', userController.newUser);
-router.post('/login', userController.validateUser);
-router.get('/logout', userController.logoutUser);
+router.post('/login', userController.login)
+router.get('/logout', sessionController.endSession);
+router.get('/user/servers/:userid', async function (req, res) {
+    var session = await req.app.sessions;
+    console.log(`UserID: ${session.userid} | Requested ID: ${req.params.userid}`)
+    if (req.params.userid == session.userid){
+        const user = await userController.getUserByID(session.userid)
+        res.render('profile', {loggedIn: session.userid, useremail: user.email})
+    }
+    else {
+        console.log(`INCORRECT USER LOGGED IN`)
+        res.render('404', { loggedIn: session.userid});
+    }
+});
 
 
 router.get('*', function(req, res){
