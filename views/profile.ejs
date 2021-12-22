@@ -1,18 +1,57 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Profile</title>
-</head>
+    <head>
+        <title>Profile</title>
+    </head>
 
-<body>
-    <% if (loggedIn) { %>
+    <body>
+        <% if (loggedIn) { %>
         <%- include('components/loggedinnavbar') %>
     <% } else { %>
         <%- include('components/navbar') %>
     <% } %>
-    <div class="container-fluid">
-        <%- useremail -%> 
+    <div class="container mt-5">
+            <div class="col-sm-12">
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body" style="line-height:.8em;">
+                        <div class="d-flex">
+                            <div class="flex-fill w-100 text-start"><h2>Server Overview</h2></div>
+                            <div class="flex-fill w-100 text-end">
+                                <a href="/profile/add" class="btn btn-primary btn-lg">Add Server</a>
+                                <a href="/ads" class="btn btn-primary pulse btn-lg">Go Premium</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-12 col-lg-4">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="list-group">
+                            <a href="" class="list-group-item active"><i class="bi mx-2 bi-house-fill"></i>Profile Home</a>
+                        </div>
+                        <div class="list-group">
+                            <a href="profile" class="list-group-item"><i class="bi mx-2 bi-gear-fill"></i>Account Settings</a>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-body">
+                            <p class="text-muted small mb-0">Servers</p>
+                            <p class="mb-0">0</p>
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-8">
+                                <div class="alert alert-default shadow-sm">
+                        You dont have a server listed yet! Click the button above to add one now!
+                    </div>
+                            </div>
+            </div>
+        
+            
+        </div>
     </div>
     
 </body>
