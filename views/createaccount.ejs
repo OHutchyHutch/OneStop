@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+  <head>
     <title>Create Account</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <%- include('components/navbar') %>
-    <% if (alert) { %>
+      <% if (alert) { %>
       <% if (alert === "emailalreadyinuse") { %>
           <div class="alert alert-danger text-center mt-3" role="alert">
               <i class="bi mx-2 bi-exclamation-triangle-fill"></i>That email is already in use!
@@ -27,7 +27,7 @@
                     </div>
       
                     <div class="form-outline form-white mb-4">
-                      <input required type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Password" />
+                      <input required type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Password" maxlength="32" minlength="7" />
                     </div>
 
                     <p class="small mb-3"><span class="text-white-50">Already have an account? <a href="login">Click Here!</a> </span></p>

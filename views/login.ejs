@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+
 <head>
     <title>Login</title>
 </head>
+
 <body>
     <%- include('components/navbar') %>
-    <% if (alert) { %>
+        <% if (alert) { %>
         <% if (alert === "accountnotfound") { %>
             <div class="alert alert-danger text-center mt-3" role="alert">
                 <i class="bi mx-2 bi-exclamation-triangle-fill"></i>Invalid email or password
@@ -31,7 +33,7 @@
                     </div>
       
                     <div class="form-outline form-white mb-4">
-                      <input required type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Password" />
+                      <input required type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Password" maxlength="32" minlength="7"/>
                     </div>
 
                     <p class="small mb-3"><span class="text-white-50">Don't have an account? <a href="createaccount">Create Account!</a> </span></p>
