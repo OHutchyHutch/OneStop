@@ -4,6 +4,7 @@
     --foggywhite: #C5C6C7;
     --bluehighlight: #66fcf2bd;
     --bluestatic: #45A29E;
+    --transitionduration: .25s;
 }
 body {
     overflow-x: hidden;
@@ -13,15 +14,6 @@ body {
 .bg-dark {
     background-color: var(--lightbackground) !important;
     color: var(--foggywhite) !important;
-}
-.btn-outline-primary {
-    border-color: var(--bluestatic);
-    color: var(--foggywhite);
-}
-.btn-outline-primary:hover{
-    border-color: var(--bluehighlight);
-    background-color: var(--lightbackground);
-    color: var(--bluehighlight);
 }
 .btn-primary{
     color: var(--foggywhite);
@@ -46,15 +38,30 @@ li {
 .bi:hover, .nav-link:hover:after, .nav-link:hover {
     color: var(--bluehighlight) !important;
 }
-.dropdown-menu {
+.menu {
     background-color: var(--lightbackground);
-    
+    color: var(--foggywhite);
+    transition-duration: var(--transitionduration);
 }
-.dropdown-item {
-    color:var(--foggywhite);
-    transition-duration: .25s;
-}
-.dropdown-item:hover {
+.menu:hover {
     background-color: var(--background);
+    color:var(--bluehighlight)
+}
+.itemoutline {
+    border-color: var(--bluestatic);
+    background-color: var(--lightbackground);
+    color: var(--bluestatic);
+    transition-duration: var(--transitionduration);
+}
+.itemoutline.hoverable:hover  {
+    border-color: var(--bluehighlight);
+    background-color: var(--lightbackground);
+    color: var(--bluehighlight);
+}
+a {
+    color: var(--bluestatic);
+    transition-duration: var(--transitionduration);
+}
+a:hover {
     color: var(--bluehighlight);
 }
