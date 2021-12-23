@@ -65,3 +65,9 @@ a {
 a:hover {
     color: var(--bluehighlight);
 }
+.active.profile{
+    background-color: var(--background) !important;
+    color: var(--bluestatic) !important;
+    border-color: var(--bluestatic);
+}
+

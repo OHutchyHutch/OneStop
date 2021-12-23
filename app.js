@@ -12,6 +12,7 @@ app.use(express.static(__dirname + '/public'))
 app.use(express.static(__dirname + '/node_modules/jquery/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap-icons'));
+app.use(express.static(__dirname + '/node_modules/bootstrap5-tags'));
 //app.use(express.static(__dirname + '/node_modules/particles-js'));
 app.use(express.json());
 app.use('/', routes);
@@ -20,13 +21,13 @@ app.use(cookieParser());
 const thirtyDays = 1000 * 60 * 60 * 24 * 30;
 app.use(sessions({
   secret: "iuoashdiauosdbabwyqx58924",
-  saveUninitialized:true,
+  saveUninitialized: true,
   cookie: { maxAge: thirtyDays },
   resave: false
 }));
 
 const db = require('./models');
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync().then(() => {
   console.log("Drop and re-sync db.");
 });
 

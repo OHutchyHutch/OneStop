@@ -1,0 +1,13 @@
+.form-control{
+    background-color: var(--background) !important;
+    color:var(--foggywhite)!important;
+    border: none !important;
+}
+.form-control * {
+    background-color: var(--background) !important;
+    color:var(--foggywhite)!important;
+}
+.form-control ul li:hover {
+    background-color: var(--bluestatic) !important;
+    color:var(--background)!important;
+}

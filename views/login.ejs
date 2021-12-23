@@ -17,6 +17,11 @@
                 <i class="bi mx-2 bi-check-circle-fill"></i>Account successfully created
             </div>
         <% } %> 
+        <% if (alert === "notlogged") { %>
+            <div class="alert alert-danger text-center mt-3" role="alert">
+                <i class="bi mx-2 bi-check-circle-fill"></i>You need to be logged in to do that!
+            </div>
+        <% } %> 
 
     <% } %> 
      
