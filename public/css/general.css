@@ -9,7 +9,7 @@
 body {
     overflow-x: hidden;
     background-color: var(--background);
-    color: var(--foggywhite);
+    color: var(--foggywhite) !important;
 }
 .bg-dark {
     background-color: var(--lightbackground) !important;

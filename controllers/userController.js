@@ -6,14 +6,14 @@ exports.newUser = async (req, res) => {
         res.redirect('createaccount?alert=emailalreadyinuse');
     }
     else {
-        await userDB.create({ email: req.body.email, password: req.body.password });
+        await userDB.create({ email: req.body.email.toLowerCase(), password: req.body.password });
         res.redirect('login?alert=accountcreated');
     }
 
 };
 
 exports.login = async (req, res) => {
-    const user = await userDB.findOne({ where: { email: req.body.email, password: req.body.password } });
+    const user = await userDB.findOne({ where: { email: req.body.email.toLowerCase(), password: req.body.password } });
     if (user !== null) {
         var session = req.app.sessions;
         session.userid = user.ID;
