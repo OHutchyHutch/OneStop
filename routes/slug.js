@@ -7,7 +7,7 @@ var storage = multer.diskStorage({
         cb(null, './models/serverbanners')
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname + ".gif")
+        cb(null, file.originalname)
     }
 })
 
@@ -58,6 +58,7 @@ router.get('/server/add', function (req, res) {
     else res.render('login', { alert: "notlogged" })
 })
 router.post('/server/add', upload.single('serverbanner'), serverController.addServer);
+router.get('/server/delete/:serverid', serverController.deleteServer);
 router.get('*', function (req, res) {
     var session = req.app.sessions;
     res.render('404', { loggedIn: session.userid });

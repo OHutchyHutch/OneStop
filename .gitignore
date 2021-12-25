@@ -1,3 +1,4 @@
 /.env
 /globalhelp.txt
 /node_modules
+/models/serverbanners/*

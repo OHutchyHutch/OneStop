@@ -4,6 +4,7 @@
     --foggywhite: #C5C6C7;
     --bluehighlight: #66fcf2bd;
     --bluestatic: #45A29E;
+    --lightred: #bd4040;
     --transitionduration: .25s;
 }
 body {
@@ -37,6 +38,9 @@ li {
 } 
 .bi:hover, .nav-link:hover:after, .nav-link:hover {
     color: var(--bluehighlight) !important;
+}
+.bi-red:hover {
+    color: var(--lightred) !important
 }
 .menu {
     background-color: var(--lightbackground);

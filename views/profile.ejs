@@ -41,7 +41,7 @@
                 <div class="card border-0 shadow-sm mb-3">
                     <div class="card-body">
                         <p class="text-muted small mb-0">Servers</p>
-                        <p class="mb-0">0</p>
+                        <p class="mb-0"><%- servers.length -%> </p>
                     </div>
                 </div>
             </div>
@@ -54,12 +54,24 @@
             <% } %>
             <div class="col-lg-8 col-sm-12 bg-dark">
                 <% servers.forEach(server => { %>
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col-12 bg-dark">
-                            <div class="alert alert-default shadow-sm">
-                                <%- server.ip -%> <%- server.port -%>
+                            <div class="row">
+                                <div class="col-lg-3 d-flex align-items-center justify-content-center">
+                                    <h3 class="align-middle"><%- server.servername -%></h3>
+                                </div>
+                                <div class="col-lg-7 d-flex align-items-center justify-content-center">
+                                    <img src="/serverbanners/<%-server.banner-%>" style="max-width: 100%"/>
+                                </div>
+                                <div class="col-lg-1 d-flex align-items-center justify-content-center">
+                                    <a><i class="bi bi-pencil-square" style="font-size: 1.5em;"></i></a>
+                                </div>
+                                <div class="col-lg-1 d-flex align-items-center justify-content-center">
+                                    <a href="/server/delete/<%-server.ID-%>"><i class="bi bi-red bi-trash-fill" style="font-size: 1.5em;"></i></a>
+                                </div>
                             </div>
-                            <img src="/serverbanners/<%-server.banner-%>.gif"/>
+                            
+                            
                         </div>
                     </div>
                 <% }) %>
