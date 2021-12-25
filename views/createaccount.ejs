@@ -7,12 +7,10 @@
 
   <body>
     <%- include('components/navbar') %>
-      <% if (alert) { %>
-      <% if (alert === "emailalreadyinuse") { %>
+      <% if (locals.alert) { %>
           <div class="alert alert-danger text-center mt-3" role="alert">
-              <i class="bi mx-2 bi-exclamation-triangle-fill"></i>That email is already in use!
+              <i class="bi mx-2 bi-exclamation-triangle-fill"></i>An account with that email is already in use!
           </div>
-      <% } %> 
     <% } %> 
     <form action="/createaccount" method="POST" class="my-4">
         <div class="row justify-content-center">

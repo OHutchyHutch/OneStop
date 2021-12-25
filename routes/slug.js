@@ -29,7 +29,7 @@ router.get('/login', function (req, res) {
         let alert = req.query.alert;
         res.render('login', { alert: alert });
     }
-    else res.render('login', { alert: null })
+    else res.render('login')
 
 });
 router.get('/createaccount', function (req, res) {
@@ -37,7 +37,7 @@ router.get('/createaccount', function (req, res) {
         let alert = req.query.alert;
         res.render('createaccount', { alert: alert });
     }
-    else res.render('createaccount', { alert: null })
+    else res.render('createaccount')
 });
 router.post('/createaccount', userController.newUser);
 router.post('/login', userController.login)
@@ -54,11 +54,13 @@ router.get('/user/servers/:userid', async function (req, res) {
 router.get('/servers/add', function (req, res) {
     var session = req.app.sessions;
     let alert = req.query.alert;
-    if (session.userid) res.render('createserver', { loggedIn: session.userid, alert: alert })
+    if (session.userid) res.render('editserver', { loggedIn: session.userid, alert: alert })
     else res.render('login', { alert: "notlogged" })
 })
 router.post('/servers/add', upload.single('serverbanner'), serverController.addServer);
 router.get('/servers/delete/:serverid', serverController.deleteServer);
+router.get('/servers/edit/:serverid', serverController.editServerGet);
+router.post('/servers/edit/:serverid', upload.single('serverbanner'), serverController.editServer);
 router.get('*', function (req, res) {
     var session = req.app.sessions;
     res.render('404', { loggedIn: session.userid });
