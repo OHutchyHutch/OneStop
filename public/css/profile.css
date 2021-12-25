@@ -1,0 +1,5 @@
+.modal-dialog * {
+    background: var(--background);
+    color: var(--foggywhite);
+    border-color: var(--background) !important;
+}

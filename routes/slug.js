@@ -51,14 +51,14 @@ router.get('/user/servers/:userid', async function (req, res) {
     }
     else res.render('404', { loggedIn: session.userid });
 });
-router.get('/server/add', function (req, res) {
+router.get('/servers/add', function (req, res) {
     var session = req.app.sessions;
     let alert = req.query.alert;
     if (session.userid) res.render('createserver', { loggedIn: session.userid, alert: alert })
     else res.render('login', { alert: "notlogged" })
 })
-router.post('/server/add', upload.single('serverbanner'), serverController.addServer);
-router.get('/server/delete/:serverid', serverController.deleteServer);
+router.post('/servers/add', upload.single('serverbanner'), serverController.addServer);
+router.get('/servers/delete/:serverid', serverController.deleteServer);
 router.get('*', function (req, res) {
     var session = req.app.sessions;
     res.render('404', { loggedIn: session.userid });

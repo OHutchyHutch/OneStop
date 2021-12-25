@@ -3,6 +3,7 @@
 
     <head>
         <title>Profile</title>
+        <link rel="stylesheet" href="/css/profile.css">
     </head>
 
     <body>
@@ -19,7 +20,7 @@
                         <div class="d-flex">
                             <div class="flex-fill w-100 text-start"><h2>Server Overview</h2></div>
                             <div class="flex-fill w-100 text-end">
-                                <a href="/server/add" class="btn btn-primary btn-lg">Add Server</a>
+                                <a href="/servers/add" class="btn btn-primary btn-lg">Add Server</a>
                                 <a href="/ads" class="btn btn-primary pulse btn-lg">Go Premium</a>
                             </div>
                         </div>
@@ -67,10 +68,30 @@
                                     <a><i class="bi bi-pencil-square" style="font-size: 1.5em;"></i></a>
                                 </div>
                                 <div class="col-lg-1 d-flex align-items-center justify-content-center">
-                                    <a href="/server/delete/<%-server.ID-%>"><i class="bi bi-red bi-trash-fill" style="font-size: 1.5em;"></i></a>
+                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal<%-server.ID-%>">
+                                        <i class="bi bi-red bi-trash-fill" style="font-size: 1.5em;"></i>
+                                      </button>
                                 </div>
                             </div>
-                            
+                            <div class="modal fade" id="modal<%-server.ID-%>" tabindex="-1" aria-labelledby="<%-server.ID-%>Label" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="modal<%-server.ID-%>Label">Are you sure?</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                      Are you sure you wish to delete <%- server.servername -%>?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                      <!--<button type="button" class="btn btn-danger">Yes, delete it</button>-->
+                                      <a href="/servers/delete/<%-server.ID-%>" class="btn btn-danger" role="button">Yes, delete it</a>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
                             
                         </div>
                     </div>
