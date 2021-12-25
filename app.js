@@ -13,7 +13,9 @@ app.use(express.static(__dirname + '/node_modules/jquery/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap-icons'));
 app.use(express.static(__dirname + '/node_modules/bootstrap5-tags'));
+app.use('/serverbanners', express.static(__dirname + '/models/serverbanners'));
 //app.use(express.static(__dirname + '/node_modules/particles-js'));
+
 app.use(express.json());
 app.use('/', routes);
 app.use(cookieParser());
@@ -28,7 +30,9 @@ app.use(sessions({
 
 const db = require('./models');
 db.sequelize.sync().then(() => {
-  console.log("Drop and re-sync db.");
+  db.ServerDB.sync().then(() => {
+    console.log("Databases loaded.");
+  });
 });
 
 const listener = app.listen(process.env.PORT || 8080, () => {

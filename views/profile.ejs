@@ -45,10 +45,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 col-sm-12 bg-dark">
-                <div class="alert alert-default shadow-sm">
-                    You dont have a server listed yet! Click the button above to add one now!
+            <% if (servers.length == 0) { %>
+                <div class="col-lg-8 col-sm-12 bg-dark">
+                    <div class="alert alert-default shadow-sm">
+                        You dont have a server listed yet! Click the button above to add one now!
+                    </div>
                 </div>
+            <% } %>
+            <div class="col-lg-8 col-sm-12 bg-dark">
+                <% servers.forEach(server => { %>
+                    <div class="row">
+                        <div class="col-12 bg-dark">
+                            <div class="alert alert-default shadow-sm">
+                                <%- server.ip -%> <%- server.port -%>
+                            </div>
+                            <img src="/serverbanners/<%-server.banner-%>.gif"/>
+                        </div>
+                    </div>
+                <% }) %>
             </div>
         </div>
     </div>
