@@ -39,10 +39,19 @@ exports.findServersByUser = async (userid) => {
     return server;
 }
 exports.deleteServer = async (req, res) => {
-    //TODO: Delete server file
     var session = req.app.sessions;
-    var server = await serverDB.findOne({ where: { ID: req.params.serverid, owner: session.userid } });
-    fs.unlinkSync(`./models/serverbanners/${server.banner}`);
-    await server.destroy({ where: { ID: req.params.serverid, owner: session.userid } })
-    res.redirect(`/user/servers/${session.userid}`)
+    if (!session.userid) {
+        res.redirect("/")
+    } else {
+        var server = await serverDB.findOne({ where: { ID: req.params.serverid, owner: session.userid } });
+        if (!server) {
+            res.redirect("/")
+        } else {
+            fs.unlinkSync(`./models/serverbanners/${server.banner}`);
+            await server.destroy({ where: { ID: req.params.serverid, owner: session.userid } })
+            res.redirect(`/user/servers/${session.userid}`)
+        }
+
+    }
+
 }
