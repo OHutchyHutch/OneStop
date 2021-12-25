@@ -30,7 +30,7 @@ app.use(sessions({
 
 const db = require('./models');
 db.sequelize.sync().then(() => {
-  db.ServerDB.sync().then(() => {
+  db.ServerDB.sync({ force: true }).then(() => {
     console.log("Databases loaded.");
   });
 });

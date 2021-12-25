@@ -1,7 +1,9 @@
 const db = require('../models');
 const serverDB = db.ServerDB;
 const fs = require('fs');
-
+if (!fs.existsSync('./models/serverbanners')) {
+    fs.mkdirSync('./models/serverbanners');
+}
 
 exports.addServer = async (req, res) => {
     let date = new Date();
