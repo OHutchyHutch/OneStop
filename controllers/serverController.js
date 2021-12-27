@@ -1,9 +1,9 @@
 const db = require('../models');
 const serverDB = db.ServerDB;
-const fs = require('fs');
-if (!fs.existsSync('./models/serverbanners')) {
-    fs.mkdir('./models/serverbanners');
-}
+const bucketController = require('./bucketController');
+const fs = require('fs')
+const util = require('util')
+const unlinkFile = util.promisify(fs.unlink)
 
 exports.addServer = async (req, res) => {
     let date = new Date();
@@ -12,6 +12,9 @@ exports.addServer = async (req, res) => {
     let year = date.getFullYear();
     var session = req.app.sessions;
     let server = await serverDB.findOne({ where: { ip: req.body.serverip, port: req.body.serverport } })
+    const file = req.file;
+    const result = await bucketController.uploadFile(file);
+    await unlinkFile(file.path)
     if (server !== null) {
         res.redirect('add?alert=serveralreadyadded');
     } else {
@@ -24,8 +27,7 @@ exports.addServer = async (req, res) => {
             website: req.body.websiteurl,
             discord: req.body.discordurl,
             tags: req.body.tags,
-            //banner: `${req.protocol}://${req.hostname}/${req.file.destination}/${req.file.filename}`,
-            banner: `${req.file.filename}`,
+            banner: result.Key,
             description: req.body.serverdesc,
             timeAdded: day + "/" + ++month + "/" + year,
             lastBump: date.getHours() + "/" + day + "/" + month

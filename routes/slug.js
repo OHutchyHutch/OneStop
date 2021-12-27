@@ -2,17 +2,9 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './models/serverbanners')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
-    }
-})
 
-const upload = multer({ dest: './models/serverbanners' });
-
+const upload = multer({ dest: './models/tmpbanners' });
+const bucketController = require('../controllers/bucketController');
 const userController = require('../controllers/userController');
 const sessionController = require('../controllers/sessionController');
 const serverController = require('../controllers/serverController');
@@ -61,8 +53,14 @@ router.post('/servers/add', upload.single('serverbanner'), serverController.addS
 router.get('/servers/delete/:serverid', serverController.deleteServer);
 router.get('/servers/edit/:serverid', serverController.editServerGet);
 router.post('/servers/edit/:serverid', upload.single('serverbanner'), serverController.editServer);
+router.get('/serverbanners/:key', (req, res) => {
+    const key = req.params.key
+    const readStream = bucketController.getFile(key)
+    readStream.pipe(res)
+});
 router.get('*', function (req, res) {
     var session = req.app.sessions;
     res.render('404', { loggedIn: session.userid });
 });
+
 module.exports = router;

@@ -13,7 +13,6 @@ app.use(express.static(__dirname + '/node_modules/jquery/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.static(__dirname + '/node_modules/bootstrap-icons'));
 app.use(express.static(__dirname + '/node_modules/bootstrap5-tags'));
-app.use('/serverbanners', express.static(__dirname + '/models/serverbanners'));
 app.use(express.json());
 app.use('/', routes);
 app.use(cookieParser());
