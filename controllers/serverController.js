@@ -5,7 +5,7 @@ const fs = require('fs')
 const util = require('util')
 const unlinkFile = util.promisify(fs.unlink)
 
-exports.addServer = async (req, res) => {
+exports.addServerPOST = async (req, res) => {
     let date = new Date();
     let day = date.getDate();
     let month = date.getMonth();
@@ -36,9 +36,13 @@ exports.addServer = async (req, res) => {
         res.redirect(`/user/servers/${session.userid}`);
     }
 }
+exports.addServerGET = (req, res) => {
+    var session = req.app.sessions;
+    let alert = req.query.alert;
+    session.userid ? res.render('editserver', { loggedIn: session.userid, alert: alert }) : res.render('login', { alert: "notlogged" });
+}
 exports.findServersByUser = async (userid) => {
-    const server = await serverDB.findAll({ where: { owner: userid } });
-    return server;
+    return await serverDB.findAll({ where: { owner: userid } });;
 }
 exports.deleteServer = async (req, res) => {
     var session = req.app.sessions;
@@ -62,11 +66,7 @@ exports.editServerGet = async (req, res) => {
         res.redirect("/")
     } else {
         const server = await serverDB.findOne({ where: { ID: req.params.serverid, owner: session.userid } })
-        if (!server) {
-            res.redirect("/")
-        } else {
-            res.render('editserver', { server: server, loggedIn: session.userid });
-        }
+        !server ? res.redirect("/") : res.render('editserver', { server: server, loggedIn: session.userid });
     }
 }
 exports.editServer = async (req, res) => {

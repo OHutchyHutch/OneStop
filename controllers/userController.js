@@ -1,5 +1,6 @@
 const db = require('../models');
 const userDB = db.UserDB;
+const serverController = require('../controllers/serverController');
 
 exports.newUser = async (req, res) => {
     if (await userExists(req.body.email)) {
@@ -22,16 +23,20 @@ exports.login = async (req, res) => {
         res.redirect('login?alert=accountnotfound');
     }
 }
-
-exports.getUserByID = async (id) => {
-    const user = await userDB.findOne({ where: { ID: id } });
-    return user;
-}
 async function userExists() {
     var user;
     if (arguments.length == 1) user = await userDB.findOne({ where: { email: arguments[0] } });
     else if (arguments.length == 2) user = await userDB.findOne({ where: { email: arguments[0], password: arguments[1] } });
 
     return !(user === null);
+}
+
+exports.getServersOwnedByUser = async (req, res) => {
+    var session = await req.app.sessions;
+    if (req.params.userid == session.userid) {
+        const servers = await serverController.findServersByUser(session.userid)
+        res.render('profile', { loggedIn: session.userid, servers: servers })
+    }
+    else res.render('404', { loggedIn: session.userid });
 }
 
