@@ -33,5 +33,7 @@ exports.getFile = function (fileKey) {
 exports.deleteFile = function (fileKey) {
     const deleteParams = {
         Key: fileKey,
+        Bucket: bucketName
     }
+    return s3.deleteObject(deleteParams).promise();
 }
