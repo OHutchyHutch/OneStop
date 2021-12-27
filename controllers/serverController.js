@@ -49,9 +49,6 @@ exports.deleteServer = async (req, res) => {
         if (!server) {
             res.redirect("/")
         } else {
-            fs.unlink(`./models/serverbanners/${server.banner}`, (err) => {
-                if (err) throw err;
-            });
             await server.destroy({ where: { ID: req.params.serverid, owner: session.userid } })
             res.redirect(`/user/servers/${session.userid}`)
         }
