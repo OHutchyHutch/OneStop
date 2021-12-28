@@ -8,12 +8,19 @@ const bucketController = require('../controllers/bucketController');
 const userController = require('../controllers/userController');
 const sessionController = require('../controllers/sessionController');
 const serverController = require('../controllers/serverController');
+const adminController = require('../controllers/adminController');
 
+//Global Variables
+var session = undefined;
+var user = undefined;
 
-router.get('/', function (req, res) {
-    var session = req.app.sessions;
-    res.render('home', { loggedIn: session.userid });
-
+router.get('/', async (req, res) => {
+    session = req.app.sessions;
+    if (session.userid && !user) {
+        user = await userController.getUserByID(session.userid);
+        res.render('home', { loggedIn: session.userid });
+    }
+    else res.render('home', { loggedIn: session.userid });
 });
 
 router.get('/login', function (req, res) {
@@ -31,14 +38,10 @@ router.post('/servers/add', upload.single('serverbanner'), serverController.addS
 router.get('/servers/delete/:serverid', serverController.deleteServer);
 router.get('/servers/edit/:serverid', serverController.editServerGet);
 router.post('/servers/edit/:serverid', upload.single('serverbanner'), serverController.editServer);
-router.get('/serverbanners/:key', (req, res) => {
-    const key = req.params.key
-    const readStream = bucketController.getFile(key)
-    readStream.pipe(res)
-});
-router.get('*', function (req, res) {
-    var session = req.app.sessions;
-    res.render('404', { loggedIn: session.userid });
-});
+router.get('/serverbanners/:key', (req, res) => { bucketController.getFile(req.params.key).pipe(res) });
+router.get('/admin', function (req, res) { res.render('loginadmin') });
+router.post('/admin', adminController.login)
+router.get('/adminpanel', adminController.access)
+router.get('*', function (req, res) { res.render('404', { loggedIn: session.userid }); });
 
 module.exports = router;

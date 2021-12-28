@@ -26,21 +26,11 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             allownull: false,
         },
-        website: {
-            type: DataTypes.STRING
-        },
-        discord: {
-            type: DataTypes.STRING,
-        },
-        tags: {
-            type: DataTypes.STRING,
-        },
-        banner: {
-            type: DataTypes.STRING,
-        },
-        description: {
-            type: DataTypes.STRING,
-        },
+        website: DataTypes.STRING,
+        discord: DataTypes.STRING,
+        tags: DataTypes.STRING,
+        banner: DataTypes.STRING,
+        description: DataTypes.STRING,
         timeAdded: {
             type: DataTypes.STRING,
             allownull: false,

@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes){
+module.exports = function (sequelize, DataTypes) {
     return sequelize.define('User', {
         ID: {
             type: DataTypes.INTEGER,
@@ -14,6 +14,10 @@ module.exports = function(sequelize, DataTypes){
         password: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        isAdmin: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
-      })
+    })
 }

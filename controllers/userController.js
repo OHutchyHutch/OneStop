@@ -7,7 +7,8 @@ exports.newUser = async (req, res) => {
         res.redirect('createaccount?alert=emailalreadyinuse');
     }
     else {
-        await userDB.create({ email: req.body.email.toLowerCase(), password: req.body.password });
+        var user = await userDB.create({ email: req.body.email.toLowerCase(), password: req.body.password });
+        if (user.ID == 1) user.update({ isAdmin: true });
         res.redirect('login?alert=accountcreated');
     }
 
@@ -23,6 +24,16 @@ exports.login = async (req, res) => {
         res.redirect('login?alert=accountnotfound');
     }
 }
+exports.getUserByID = async (id) => {
+    if (id) {
+        try {
+            return await userDB.findOne({ where: { ID: id } })
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+}
 async function userExists() {
     var user;
     if (arguments.length == 1) user = await userDB.findOne({ where: { email: arguments[0] } });
@@ -32,7 +43,7 @@ async function userExists() {
 }
 
 exports.getServersOwnedByUser = async (req, res) => {
-    var session = await req.app.sessions;
+    var session = req.app.sessions;
     if (req.params.userid == session.userid) {
         const servers = await serverController.findServersByUser(session.userid)
         res.render('profile', { loggedIn: session.userid, servers: servers })

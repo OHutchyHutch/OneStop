@@ -16,4 +16,5 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.UserDB = require('./users')(sequelize, Sequelize);
 db.ServerDB = require('./servers')(sequelize, Sequelize);
+db.MinecraftServerDB = require('./minecraftserver')(sequelize, Sequelize);
 module.exports = db;
