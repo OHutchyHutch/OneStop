@@ -8,7 +8,7 @@ const unlinkFile = util.promisify(fs.unlink)
 exports.addServerPOST = async (req, res) => {
     const date = new Date();
     const day = date.getDate();
-    const month = date.getMonth();
+    var month = date.getMonth();
     const year = date.getFullYear();
     var session = req.app.sessions;
     const server = await serverDB.findOne({ where: { ip: req.body.serverip, port: req.body.serverport } })
@@ -39,7 +39,7 @@ exports.addServerPOST = async (req, res) => {
 exports.addServerGET = (req, res) => {
     var session = req.app.sessions;
     let alert = req.query.alert;
-    session.userid ? res.render('editserver', { loggedIn: session.userid, alert: alert }) : res.render('login', { alert: "notlogged" });
+    session.userid ? res.render('editserver', { loggedIn: session.userid, alert: alert }) : res.render('user/login', { alert: "notlogged" });
 }
 exports.findServersByUser = async (userid) => {
     return await serverDB.findAll({ where: { owner: userid } });;

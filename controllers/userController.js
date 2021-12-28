@@ -4,12 +4,12 @@ const serverController = require('../controllers/serverController');
 
 exports.newUser = async (req, res) => {
     if (await userExists(req.body.email)) {
-        res.redirect('createaccount?alert=emailalreadyinuse');
+        res.redirect('user/createaccount?alert=emailalreadyinuse');
     }
     else {
         var user = await userDB.create({ email: req.body.email.toLowerCase(), password: req.body.password });
         if (user.ID == 1) user.update({ isAdmin: true });
-        res.redirect('login?alert=accountcreated');
+        res.redirect('user/login?alert=accountcreated');
     }
 
 };
@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
         session.userid = user.ID;
         res.redirect('/');
     } else {
-        res.redirect('login?alert=accountnotfound');
+        res.redirect('user/login?alert=accountnotfound');
     }
 }
 exports.getUserByID = async (id) => {
@@ -46,7 +46,7 @@ exports.getServersOwnedByUser = async (req, res) => {
     var session = req.app.sessions;
     if (req.params.userid == session.userid) {
         const servers = await serverController.findServersByUser(session.userid)
-        res.render('profile', { loggedIn: session.userid, servers: servers })
+        res.render('user/profile', { loggedIn: session.userid, servers: servers })
     }
     else res.render('404', { loggedIn: session.userid });
 }

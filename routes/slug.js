@@ -24,10 +24,10 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/login', function (req, res) {
-    req.query.alert ? res.render('login', { alert: req.query.alert }) : res.render('login')
+    req.query.alert ? res.render('login', { alert: req.query.alert }) : res.render('user/login')
 });
 router.get('/createaccount', function (req, res) {
-    req.query.alert ? res.render('createaccount', { alert: req.query.alert }) : res.render('createaccount')
+    req.query.alert ? res.render('createaccount', { alert: req.query.alert }) : res.render('user/createaccount')
 });
 router.post('/createaccount', userController.newUser);
 router.post('/login', userController.login)
@@ -39,9 +39,12 @@ router.get('/servers/delete/:serverid', serverController.deleteServer);
 router.get('/servers/edit/:serverid', serverController.editServerGet);
 router.post('/servers/edit/:serverid', upload.single('serverbanner'), serverController.editServer);
 router.get('/serverbanners/:key', (req, res) => { bucketController.getFile(req.params.key).pipe(res) });
-router.get('/admin', function (req, res) { res.render('loginadmin') });
+router.get('/admin', function (req, res) { res.render('admin/loginadmin') });
 router.post('/admin', adminController.login)
-router.get('/adminpanel', adminController.access)
-router.get('*', function (req, res) { res.render('404', { loggedIn: session.userid }); });
+router.get('/admin/dashboard', adminController.access)
+router.get('*', function (req, res) {
+    var session = req.app.sessions;
+    res.render('404', { loggedIn: session.userid });
+});
 
 module.exports = router;
