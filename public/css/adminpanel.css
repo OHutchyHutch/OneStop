@@ -8,3 +8,17 @@ body {
     /* margin-left: -300px; */
     transition: 0.4s;
 }
+th {
+    background-color: var(--bluestatic);
+    color: black;
+}
+tr:nth-of-type(odd) {
+    background-color: var(--lightbackground);
+}
+table {
+    text-align: center;
+}
+td, th {
+    padding-left: 4px;
+    padding-right: 4px;
+}

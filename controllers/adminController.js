@@ -1,4 +1,4 @@
-const { UserDB } = require('../models');
+const { UserDB, ServerDB, MinecraftServerDB } = require('../models');
 const userController = require('./userController');
 require('dotenv').config()
 
@@ -27,10 +27,24 @@ exports.database = async (req, res) => {
         res.redirect('/admin')
     }
     const database = req.query.database;
+    let data = null;
+    let type = null;
     switch (database) {
-        case 'user':
-            const data = await UserDB.findAll();
-            res.render('admin/database', { data: data })
+        case 'users':
+            data = await UserDB.findAll();
+            type = 'user'
+            res.render('admin/database', { data: data, type: type })
+            break;
+        case 'servers':
+            data = await ServerDB.findAll();
+            type = 'servers'
+            res.render('admin/database', { data: data, type: type })
+            break;
+        case 'versions':
+            data = await MinecraftServerDB.findAll();
+            type = 'versions'
+            res.render('admin/database', { data: data, type: type })
+            break;
     }
 }
 

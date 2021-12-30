@@ -14,6 +14,7 @@ exports.addServerPOST = async (req, res) => {
     const server = await serverDB.findOne({ where: { ip: req.body.serverip, port: req.body.serverport } })
     const file = req.file;
     const result = await bucketController.uploadFile(file);
+    const tags = (req.body.tags).toString();
     await unlinkFile(file.path)
     if (server !== null) {
         res.redirect('add?alert=serveralreadyadded');
@@ -26,7 +27,7 @@ exports.addServerPOST = async (req, res) => {
             port: req.body.serverport,
             website: req.body.websiteurl,
             discord: req.body.discordurl,
-            tags: req.body.tags,
+            tags: tags,
             banner: result.Key,
             description: req.body.serverdesc,
             timeAdded: day + "/" + ++month + "/" + year,
