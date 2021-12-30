@@ -5,10 +5,109 @@
     <link rel="stylesheet" href="/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/adminpanel.css">
 </head>
 
 <body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <%- include('sidebar') -%>
+                <div class="col py-3">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-4 col-xl-4">
+                            <div class="card mb-4 overflow-hidden shadow-none">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-success mb-0">
+                                                Total Earned
+                                            </h5>
+                                            <span class="h2 font-weight-bold mb-0">
+                                                $230.85
+                                            </span>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape text-success rounded-circle">
+                                                <svg class="bi" width="32" height="32" fill="currentColor">
+                                                    <use xlink:href="/public/img/bootstrap-icons.svg#shop"></use>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-sm">
+                                        <span class="text-success">
+                                            +$0.00
+                                        </span>
+                                        <span class="text-nowrap">earned this month</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-sm-12 col-lg-4 col-xl-4">
+                            <div class="card mb-4 overflow-hidden shadow-none">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-warning mb-0">
+                                                Members
+                                            </h5>
+                                            <span class="h2 font-weight-bold mb-0">
+                                                201
+                                            </span>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape text-warning rounded-circle">
+                                                <svg class="bi" width="32" height="32" fill="currentColor">
+                                                    <use xlink:href="/public/img/bootstrap-icons.svg#people"></use>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="mt-3 mb-0 text-sm">
+                                        <span class="text-warning">
+                                            +11
+                                        </span>
+                                        <span class="text-nowrap">members this month</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-lg-4 col-xl-4">
+                            <div class="card mb-4 overflow-hidden shadow-none">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-info mb-0">
+                                                Servers Added
+                                            </h5>
+                                            <span class="h2 font-weight-bold mb-0">
+                                                78
+                                            </span>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="icon icon-shape text-info rounded-circle">
+                                                <svg class="bi" width="38" height="38" fill="currentColor">
+                                                    <use xlink:href="/public/img/bootstrap-icons.svg#list-nested"></use>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-sm">
+                                        <span class="text-info">
+                                            +4
+                                        </span>
+                                        <span class="text-nowrap">servers this month</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
 
     <script src="/jquery.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>

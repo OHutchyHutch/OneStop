@@ -24,10 +24,10 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/login', function (req, res) {
-    req.query.alert ? res.render('login', { alert: req.query.alert }) : res.render('user/login')
+    req.query.alert ? res.render('user/login', { alert: req.query.alert }) : res.render('user/login')
 });
 router.get('/createaccount', function (req, res) {
-    req.query.alert ? res.render('createaccount', { alert: req.query.alert }) : res.render('user/createaccount')
+    req.query.alert ? res.render('user/createaccount', { alert: req.query.alert }) : res.render('user/createaccount')
 });
 router.post('/createaccount', userController.newUser);
 router.post('/login', userController.login)
@@ -42,6 +42,7 @@ router.get('/serverbanners/:key', (req, res) => { bucketController.getFile(req.p
 router.get('/admin', function (req, res) { res.render('admin/loginadmin') });
 router.post('/admin', adminController.login)
 router.get('/admin/dashboard', adminController.access)
+router.get('/admin/dashboard/database', adminController.database)
 router.get('*', function (req, res) {
     var session = req.app.sessions;
     res.render('404', { loggedIn: session.userid });

@@ -26,7 +26,7 @@ app.use(sessions({
 }));
 
 const db = require('./models');
-db.sequelize.sync().then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   console.log("Databases loaded.");
 });
 

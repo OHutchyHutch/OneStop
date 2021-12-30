@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/adminpanel.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <%- include('sidebar') -%>
+                <div class="col py-3">
+                    <% data.forEach(data => { %>
+                        <div>
+                            <h1><%- data.ID %> </h1>
+                            <h2><%- data.isAdmin %></h2>
+                            <h3><%- data.email %> | <%- data.password %></h3>
+                        </div>
+                    <% }) %>
+                </div>
+        </div>
+    </div>
+</body>
