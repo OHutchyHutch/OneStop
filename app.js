@@ -27,12 +27,21 @@ app.use(sessions({
 
 const db = require('./models');
 db.sequelize.sync().then(() => {
+  createServer();
   console.log("Databases loaded.");
+
 });
 
 const listener = app.listen(process.env.PORT || 8080, () => {
   console.log('Server is established and listening on port ' + listener.address().port)
 })
+async function createServer() {
+  const server = await db.MinecraftServerDB.findOne();
+  if (server == null || server == undefined) {
+    console.log("Creating server!")
+    await db.MinecraftServerDB.create()
+  }
+}
 
 app.sessions = sessions;
 app.cookieParser = cookieParser;

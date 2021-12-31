@@ -41,11 +41,20 @@ exports.database = async (req, res) => {
             res.render('admin/database', { data: data, type: type })
             break;
         case 'versions':
-            data = await MinecraftServerDB.findAll();
+            data = await MinecraftServerDB.findOne();
             type = 'versions'
-            res.render('admin/database', { data: data, type: type })
+            let versions = (data.versions).split(',')
+            let tags = (data.tags).split(',')
+            res.render('admin/database', { versions: versions, tags: tags, type: type })
             break;
     }
+}
+exports.saveTags = async (req, res) => {
+    const data = await MinecraftServerDB.findOne();
+    const versiontags = (req.body.versionstags).toString();
+    const tags = (req.body.tags).toString();
+    await data.update({ versions: versiontags, tags: tags })
+    res.redirect('/admin/dashboard/database?database=versions')
 }
 
 async function hasAccess(userID) {

@@ -43,6 +43,7 @@ router.get('/admin', function (req, res) { res.render('admin/loginadmin') });
 router.post('/admin', adminController.login)
 router.get('/admin/dashboard', adminController.access)
 router.get('/admin/dashboard/database', adminController.database)
+router.post('/admin/dashboard/tags', adminController.saveTags)
 router.get('*', function (req, res) {
     var session = req.app.sessions;
     res.render('404', { loggedIn: session.userid });
