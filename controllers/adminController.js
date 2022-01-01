@@ -51,8 +51,8 @@ exports.database = async (req, res) => {
 }
 exports.saveTags = async (req, res) => {
     const data = await MinecraftServerDB.findOne();
-    const versiontags = (req.body.versionstags).toString();
-    const tags = (req.body.tags).toString();
+    const versiontags = ((req.body.versionstags).sort()).toString();
+    const tags = ((req.body.tags).sort()).toString();
     await data.update({ versions: versiontags, tags: tags })
     res.redirect('/admin/dashboard/database?database=versions')
 }

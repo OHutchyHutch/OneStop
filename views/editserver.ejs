@@ -22,8 +22,9 @@
                                 <div class="col-lg-2">
                                     <label>Version</label>
                                     <select class="form-control form-control-lg" name="version" value="<%- server.version -%>">
-                                        <option value="1.17.X">1.17.X</option>
-                                        <option value="1.16.X">1.16.X</option>
+                                        <% versions.forEach(versions => { %>
+                                            <option value=<%-versions %>><%-versions %></option>
+                                        <% }) %>>
                                     </select>
                                 </div>
                                 <div class="col">
@@ -61,10 +62,15 @@
                                     <select class="form-select form-control-lg" id="validationTags" name="tags" multiple
                                         data-max="5">
                                         <option disabled hidden value="">Choose a tag...</option>
-                                        <option value="prison">Prison</option>
-                                        <option value="factions">Factions</option>
-                                        <option value="skyblock">Skyblock</option>
-                                        <option value="minigames">Minigames</option>
+                                        <% servertags.forEach(tags => { %>
+                                            <option value="<%-tags%>" selected="selected" ><%-tags%></option>
+                                        <% }) %>
+                                        <% tags.forEach(tags => { %>
+                                            <% if (servertags.includes(tags) == false) { %>
+                                                <option value="<%-tags%>"><%-tags%></option>
+                                            <% } %>
+                                            
+                                        <% }) %>
                                     </select>
                                     <div class="invalid-feedback">Please select a valid tag.</div>
                                 </div>
@@ -110,8 +116,9 @@
                                 <div class="col-lg-2">
                                     <label>Version</label>
                                     <select class="form-control form-control-lg" name="version">
-                                        <option value="1.17.X">1.17.X</option>
-                                        <option value="1.16.X">1.16.X</option>
+                                        <% versions.forEach(versions => { %>
+                                            <option value=<%-versions %>><%-versions %></option>
+                                        <% }) %>
                                     </select>
                                 </div>
                                 <div class="col">
@@ -147,12 +154,11 @@
                                 <div class="col">
                                     <label for="validationTags">Tags</label>
                                     <select class="form-select form-control-lg" id="validationTags" name="tags" multiple
-                                        data-max="5">
+                                        data-max="5" data-show-all-suggestions="true">
                                         <option disabled hidden value="">Choose a tag...</option>
-                                        <option value="prison">Prison</option>
-                                        <option value="factions">Factions</option>
-                                        <option value="skyblock">Skyblock</option>
-                                        <option value="minigames">Minigames</option>
+                                        <% tags.forEach(tags => { %>
+                                            <option value="<%-tags%>"><%-tags%></option>
+                                        <% }) %>
                                     </select>
                                     <div class="invalid-feedback">Please select a valid tag.</div>
                                 </div>
