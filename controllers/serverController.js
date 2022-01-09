@@ -2,7 +2,8 @@ const { ServerDB, MinecraftServerDB } = require('../models');
 const bucketController = require('./bucketController');
 
 const fs = require('fs')
-const util = require('util')
+const util = require('util');
+const { Console } = require('console');
 const unlinkFile = util.promisify(fs.unlink)
 
 exports.addServerPOST = async (req, res) => {
@@ -90,4 +91,10 @@ exports.editServer = async (req, res) => {
         description: req.body.serverdesc
     })
     res.redirect(`/user/servers/${session.userid}`);
+}
+exports.serverProfile = async (req, res) => {
+    var session = req.app.sessions;
+    session = session.userid;
+    const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
+    res.render('server/profile', { server: server, loggedIn: session })
 }

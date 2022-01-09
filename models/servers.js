@@ -31,6 +31,13 @@ module.exports = function (sequelize, DataTypes) {
         tags: DataTypes.STRING,
         banner: DataTypes.STRING,
         description: DataTypes.STRING,
+        playercount: DataTypes.STRING,
+        votes: DataTypes.INTEGER,
+        isPremium: {
+            type: DataTypes.BOOLEAN,
+            default: 0
+        },
+        sponsoredSlot: DataTypes.BOOLEAN,
         timeAdded: {
             type: DataTypes.STRING,
             allownull: false,

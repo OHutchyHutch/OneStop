@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <% if (loggedIn) { %>
+        <%- include('../components/loggedinnavbar') %>
+    <% } else { %>
+        <%- include('../components/navbar') %>
+    <% } %>
+    <div class="container-fluid">
+        
+        
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-12">
+    
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                        <div class="row align-items-center flex-sm-column flex-lg-row">
+                            <div class="col mb-sm-3 mb-lg-0">
+                                <h4 class="mb-0">
+                                    <%- server.servername %> 
+                                </h4>
+                                <span><%- server.version %></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="sticky-top" style="top:18px;">
+    
+                            <div class="d-flex ">
+                                <div class="flex-fill pr-1">
+                                    <a href="<%- server.website %>" target="_blank" class="btn btn-primary btn-block mb-3 ">
+                                        <i class="bi bi-link-45deg"></i>Website
+                                    </a>
+                                </div>
+                                <div class="flex-fill pr-1">
+                                    <a href="<%- server.discord %>" rel="nofollow" class="btn btn-primary btn-block mb-3 " target="_blank">
+                                        <i class="bi bi-discord"></i> Discord
+                                    </a>
+                                </div>
+                                <div class="flex-fill">
+                                    <a href="/report/<%- server.ID %> " rel="nofollow" class="btn btn-danger btn-block mb-3" target="_blank">
+                                        <i class="bi bi-flag-fill"></i>Report
+                                    </a>
+                                </div>
+                            </div>
+    
+                            <div class="card shadow-sm border-0 mb-3">
+                                <div class="card-body">
+                                    <small class="text-muted">Server Status</small>
+                                    <h6 class="mb-0 text-success">
+                                        Online
+                                    </h6>
+                                </div>
+                            </div>
+    
+                            <div class="card shadow-sm border-0 mb-3">
+                                <div class="card-body">
+                                    <small class="text-muted">Server IP</small>
+                                    <h6 class="mb-0">
+                                        
+                                        <% if (server.port !== null || server.port !== undefined) { %>
+                                            <%- server.ip %>:<%- server.port %>
+                                        <% } else { %>
+                                            <%- server.ip %>
+                                        <% } %>
+                                    </h6>
+                                </div>
+                            </div>
+    
+                            <div class="card shadow-sm border-0 mb-3">
+                                <div class="card-body">
+                                    <small class="text-muted">Player Count</small>
+                                    <h6 class="mb-0">
+                                        <%- server.playercount %>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card shadow-sm border-0 mb-3">
+                                <div class="card-body">
+                                    <small class="text-muted">Votes</small>
+                                    <h6 class="mb-0">
+                                        <%- server.votes %>
+                                    </h6>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+    
+                    <div class="col-sm-12 col-lg-8">
+                                            <div class="alert alert-default border-info shadow-sm d-none d-lg-block">
+                            <a href="/vote/89" id="vote" data-id="89" rel="nofollow" class="btn btn-outline-white mt-2 float-right vote-btn">
+                                Vote Now
+                            </a>
+                            <h5 class="mb-0 text-white">Like this server?</h5>
+                            <p class="mb-0">Consider giving it a vote to show your support!</p>
+                        </div>
+                                            <!--
+                        <div class="card border-0 shadow-sm mb-3">
+                            <div class="card-body pb-2">
+                                <div class="dropdown mb-3">
+                                    <button class="btn btn-outline-default dropdown-toggle"
+                                        id="ratebtn"  rel="nofollow"
+                                            type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        30 Days
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" rel="nofollow"
+                                            id="days"
+                                            data-days="180"
+                                            href="#">
+                                            180 Days
+                                        </a>
+                                        <a class="dropdown-item" rel="nofollow"
+                                            id="days"
+                                            data-days="90"
+                                            href="#">
+                                            90 Days
+                                        </a>
+                                        <a class="dropdown-item" rel="nofollow"
+                                            id="days"
+                                            data-days="60"
+                                            href="#">
+                                            60 Days
+                                        </a>
+                                        <a class="dropdown-item" rel="nofollow"
+                                            id="days"
+                                            data-days="30"
+                                            href="#">
+                                            30 Days
+                                        </a>
+                                        <a class="dropdown-item" rel="nofollow"
+                                            id="days"
+                                            data-days="7"
+                                            href="#">
+                                            7 Days
+                                        </a>
+                                    </div>
+    
+                                    <span id="loader">
+                                        <i class="fad fa-spinner fa-pulse"></i> Loading
+                                    </span>
+                                </div>
+    
+                                <div style="height:200px">
+                                    <canvas id="voteChart" height="200px"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+    
+                        <div class="card border-0 shadow-sm mb-3">
+                            <div class="card-body">
+                                <p>VulcanoMC is a new survival server. For now, we only have survival but that will change in the future. Our friendly and dedicated moderation team is always around to help while our network admins continue to develop new game modes and features to grow our community. We strive to create a positive, friendly community and hope you decide to join us.</p><p><br></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

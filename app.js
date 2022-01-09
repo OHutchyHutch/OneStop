@@ -39,7 +39,10 @@ async function createServer() {
   const server = await db.MinecraftServerDB.findOne();
   if (server == null || server == undefined) {
     console.log("Creating server!")
-    await db.MinecraftServerDB.create()
+    await db.MinecraftServerDB.create({
+      versions: "1.17.X, 1.16.X",
+      tags: "Prison, Skyblock"
+    })
   }
 }
 

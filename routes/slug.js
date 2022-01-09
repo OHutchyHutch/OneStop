@@ -33,6 +33,7 @@ router.post('/createaccount', userController.newUser);
 router.post('/login', userController.login)
 router.get('/logout', sessionController.endSession);
 router.get('/user/servers/:userid', userController.getServersOwnedByUser);
+router.get('/servers/profile/:serverid', serverController.serverProfile)
 router.get('/servers/add', serverController.addServerGET);
 router.post('/servers/add', upload.single('serverbanner'), serverController.addServerPOST);
 router.get('/servers/delete/:serverid', serverController.deleteServer);
