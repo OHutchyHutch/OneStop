@@ -31,6 +31,7 @@ module.exports = function (sequelize, DataTypes) {
         tags: DataTypes.STRING,
         banner: DataTypes.STRING,
         description: DataTypes.STRING,
+        status: DataTypes.BOOLEAN,
         playercount: DataTypes.STRING,
         votes: DataTypes.INTEGER,
         isPremium: {

@@ -1,5 +1,5 @@
 const express = require('express')
-const routes = require('./routes/slug');
+const routes = require('./routes/slughandler');
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const app = express();

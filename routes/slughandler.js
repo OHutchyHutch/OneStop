@@ -11,16 +11,16 @@ const serverController = require('../controllers/serverController');
 const adminController = require('../controllers/adminController');
 
 //Global Variables
-var session = undefined;
-var user = undefined;
+var [session, user] = [undefined];
 
 router.get('/', async (req, res) => {
     session = req.app.sessions;
+    var servers = await serverController.getAllServers();
     if (session.userid && !user) {
         user = await userController.getUserByID(session.userid);
-        res.render('home', { loggedIn: session.userid });
+        res.render('home', { loggedIn: session.userid, servers: servers });
     }
-    else res.render('home', { loggedIn: session.userid });
+    else res.render('home', { loggedIn: session.userid, servers: servers });
 });
 
 router.get('/login', function (req, res) {
@@ -32,7 +32,8 @@ router.get('/createaccount', function (req, res) {
 router.post('/createaccount', userController.newUser);
 router.post('/login', userController.login)
 router.get('/logout', sessionController.endSession);
-router.get('/user/servers/:userid', userController.getServersOwnedByUser);
+router.get('/user/profile', userController.getServersOwnedByUser);
+router.get('/user/settings', userController.getUserSettings);
 router.get('/servers/profile/:serverid', serverController.serverProfile)
 router.get('/servers/add', serverController.addServerGET);
 router.post('/servers/add', upload.single('serverbanner'), serverController.addServerPOST);

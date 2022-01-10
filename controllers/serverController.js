@@ -3,7 +3,6 @@ const bucketController = require('./bucketController');
 
 const fs = require('fs')
 const util = require('util');
-const { Console } = require('console');
 const unlinkFile = util.promisify(fs.unlink)
 
 exports.addServerPOST = async (req, res) => {
@@ -20,7 +19,7 @@ exports.addServerPOST = async (req, res) => {
     if (server !== null) {
         res.redirect('add?alert=serveralreadyadded');
     } else {
-        await ServerDB.create({
+        const server = await ServerDB.create({
             owner: session.userid,
             version: req.body.version,
             servername: req.body.servername,
@@ -35,7 +34,7 @@ exports.addServerPOST = async (req, res) => {
             lastBump: date.getHours() + "/" + day + "/" + month
         });
 
-        res.redirect(`/user/servers/${session.userid}`);
+        res.redirect(`/servers/profile/${server.ID}`);
     }
 }
 exports.addServerGET = async (req, res) => {
@@ -97,4 +96,10 @@ exports.serverProfile = async (req, res) => {
     session = session.userid;
     const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
     res.render('server/profile', { server: server, loggedIn: session })
+}
+exports.getAllServers = async (filter) => {
+    if (filter == null) {
+        const servers = await ServerDB.findAll();
+        return servers;
+    }
 }

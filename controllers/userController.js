@@ -26,12 +26,8 @@ exports.login = async (req, res) => {
 }
 exports.getUserByID = async (id) => {
     if (id) {
-        try {
-            return await userDB.findOne({ where: { ID: id } })
-        }
-        catch (err) {
-            console.log(err);
-        }
+        try { return await userDB.findOne({ where: { ID: id } }) }
+        catch (err) { console.log(err); }
     }
 }
 async function userExists() {
@@ -44,10 +40,18 @@ async function userExists() {
 
 exports.getServersOwnedByUser = async (req, res) => {
     var session = req.app.sessions;
-    if (req.params.userid == session.userid) {
+    if (session.userid) {
         const servers = await serverController.findServersByUser(session.userid)
         res.render('user/profile', { loggedIn: session.userid, servers: servers })
     }
-    else res.render('404', { loggedIn: session.userid });
+    else res.render('user/login', { alert: "notlogged" });
 }
-
+exports.getUserSettings = async (req, res) => {
+    var session = req.app.sessions;
+    if (session.userid) {
+        const user = await userDB.findOne({ where: { ID: session.userid } })
+        res.render('user/accountsettings', { loggedIn: session.userid, user: user })
+    } else {
+        res.render('user/login', { alert: "notlogged" });
+    }
+}

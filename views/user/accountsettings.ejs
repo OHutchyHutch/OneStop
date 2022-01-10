@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Profile</title>
+        <link rel="stylesheet" href="/css/profile.css">
+    </head>
+
+    <body>
+        <% if (loggedIn) { %>
+        <%- include('../components/loggedinnavbar') %>
+    <% } else { %>
+        <%- include('../components/navbar') %>
+    <% } %>
+    <div class="container mt-5">
+        <div class="row px-0">
+            <div class="col-12 p-0">
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body" style="line-height:.8em;">
+                        <div class="d-flex">
+                            <div class="flex-fill w-100 text-start"><h2>Account Settings</h2></div>
+                            <div class="flex-fill w-100 text-end">
+                                <a href="/servers/add" class="btn btn-primary btn-lg">Add Server</a>
+                                <a href="/ads" class="btn btn-primary pulse btn-lg">Go Premium</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-sm-12 col-lg-4 ps-0">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="list-group menu">
+                        <a href="/user/profile" class="menu list-group-item profile"><i class="bi mx-2 bi-house-fill"></i>Profile Home</a>
+                    </div>
+                    <div class="list-group">
+                        <a href="/user/settings" class="menu list-group-item active profile"><i class="bi mx-2 bi-gear-fill"></i>Account Settings</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-sm-12 bg-dark">
+                <%- user.email %> 
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
