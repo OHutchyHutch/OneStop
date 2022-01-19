@@ -25,21 +25,19 @@
                                                 <h4 class="text-white"><span class="align-middle"><%- server.servername -%></span></h4>
                                             </div>
                                             <div class="row">
-                                                <div class="col">
-                                                    <% if (server.port) { %>
-                                                        <h6><%- server.ip -%>:<%- server.port -%></h6>
-                                                    <% } else { %>
-                                                        <h6><%- server.ip -%></h6>
-                                                    <% } %>
-                                                </div>
-                                                <div class="col">
-                                                    <% if (server.status) { %>
-                                                        <h6><span class="ms-3 badge rounded-pill bg-success align-middle"><%- server.playercount -%></span> </h6>
-                                                        <% } else { %>
-                                                            <h6><span class="ms-3 badge rounded-pill bg-danger align-middle">OFFLINE</span> </h6>
-                                                        <% } %>
-                                                </div> 
+                                                <% if (server.port) { %>
+                                                    <h6><%- server.ip -%>:<%- server.port -%></h6>
+                                                <% } else { %>
+                                                    <h6><%- server.ip -%></h6>
+                                                <% } %>
                                             </div>
+                                        </div>
+                                        <div class="col">
+                                            <% if (server.status) { %>
+                                                <h6><span class="ms-3 badge rounded-pill bg-success align-middle"><%- server.playercount -%> Online</span> </h6>
+                                                <% } else { %>
+                                                    <h6><span class="ms-3 badge rounded-pill bg-danger align-middle">OFFLINE</span> </h6>
+                                                <% } %>
                                         </div>
                                     </div>                 
                                 </div>

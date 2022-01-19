@@ -30,7 +30,7 @@ async function updateStatus() {
                 const playersonline = formatInteger(result.players.online);
                 const maxplayers = formatInteger(result.players.max);
                 await server.update({
-                    playercount: `${playersonline}/${maxplayers}`,
+                    playercount: `${playersonline}`,
                     status: true,
                 })
             } catch (e) {
