@@ -22,10 +22,7 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allownull: false,
         },
-        port: {
-            type: DataTypes.INTEGER,
-            allownull: false,
-        },
+        port: DataTypes.STRING,
         website: DataTypes.STRING,
         discord: DataTypes.STRING,
         tags: DataTypes.STRING,

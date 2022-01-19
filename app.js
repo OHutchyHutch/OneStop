@@ -29,7 +29,6 @@ const db = require('./models');
 db.sequelize.sync().then(() => {
   createServer();
   console.log("Databases loaded.");
-
 });
 
 const listener = app.listen(process.env.PORT || 8080, () => {

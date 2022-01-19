@@ -2,7 +2,9 @@
 <html>
 
     <head>
-        <title>Home</title>
+        <title>
+            <%- server.servername %> Profile
+        </title>
     </head>
 
     <body>
@@ -57,9 +59,15 @@
                             <div class="card shadow-sm border-0 mb-3">
                                 <div class="card-body">
                                     <small class="text-muted">Server Status</small>
-                                    <h6 class="mb-0 text-success">
-                                        Online
-                                    </h6>
+                                    <% if (server.status) { %>
+                                        <h6 class="mb-0 text-success">
+                                            Online
+                                        </h6>
+                                    <% } else { %>
+                                        <h6 class="mb-0 text-danger">
+                                            Offline
+                                        </h6>
+                                    <% } %>
                                 </div>
                             </div>
     
@@ -105,7 +113,7 @@
                                     <p class="mb-0">Consider giving it a vote to show your support!</p>
                                 </div>
                                 <div class="col-lg-2">
-                                    <a href="/vote/89" id="vote" data-id="89" rel="nofollow" class="btn btn-outline-primary mt-2 float-right vote-btn">
+                                    <a href="/servers/vote/<%- server.ID %>" id="vote" data-id="89" rel="nofollow" class="btn btn-outline-primary mt-2 float-right vote-btn">
                                         Vote Now
                                     </a>
                                 </div>
@@ -116,7 +124,7 @@
     
                         <div class="card border-0 shadow-sm mb-3">
                             <div class="card-body">
-                                <p>VulcanoMC is a new survival server. For now, we only have survival but that will change in the future. Our friendly and dedicated moderation team is always around to help while our network admins continue to develop new game modes and features to grow our community. We strive to create a positive, friendly community and hope you decide to join us.</p><p><br></p>
+                                <p> <br> <%- server.description %> <br></p>
                             </div>
                         </div>
                     </div>

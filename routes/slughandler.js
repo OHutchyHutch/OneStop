@@ -9,6 +9,7 @@ const userController = require('../controllers/userController');
 const sessionController = require('../controllers/sessionController');
 const serverController = require('../controllers/serverController');
 const adminController = require('../controllers/adminController');
+const statusController = require('../controllers/statusController');
 
 //Global Variables
 var [session, user] = [undefined];
@@ -40,6 +41,7 @@ router.post('/servers/add', upload.single('serverbanner'), serverController.addS
 router.get('/servers/delete/:serverid', serverController.deleteServer);
 router.get('/servers/edit/:serverid', serverController.editServerGet);
 router.post('/servers/edit/:serverid', upload.single('serverbanner'), serverController.editServer);
+router.get('/servers/vote/:serverid', serverController.serverVoteGet);
 router.get('/serverbanners/:key', (req, res) => { bucketController.getFile(req.params.key).pipe(res) });
 router.get('/admin', function (req, res) { res.render('admin/loginadmin') });
 router.post('/admin', adminController.login)

@@ -11,28 +11,48 @@ exports.addServerPOST = async (req, res) => {
     var month = date.getMonth();
     const year = date.getFullYear();
     var session = req.app.sessions;
-    const server = await ServerDB.findOne({ where: { ip: req.body.serverip, port: req.body.serverport } })
-    const file = req.file;
-    const result = await bucketController.uploadFile(file);
-    const tags = (req.body.tags).toString();
-    await unlinkFile(file.path)
+    var server;
+    if (req.body.serverport) server = await ServerDB.findOne({ where: { ip: req.body.serverip, port: req.body.serverport } })
+    else server = await ServerDB.findOne({ where: { ip: req.body.serverip } })
     if (server !== null) {
         res.redirect('add?alert=serveralreadyadded');
     } else {
-        const server = await ServerDB.create({
-            owner: session.userid,
-            version: req.body.version,
-            servername: req.body.servername,
-            ip: req.body.serverip,
-            port: req.body.serverport,
-            website: req.body.websiteurl,
-            discord: req.body.discordurl,
-            tags: tags,
-            banner: result.Key,
-            description: req.body.serverdesc,
-            timeAdded: day + "/" + ++month + "/" + year,
-            lastBump: date.getHours() + "/" + day + "/" + month
-        });
+        const file = req.file;
+        const result = await bucketController.uploadFile(file);
+        const tags = (req.body.tags).toString();
+        await unlinkFile(file.path)
+        var server;
+        if (req.body.serverport) {
+            server = await ServerDB.create({
+                owner: session.userid,
+                version: req.body.version,
+                servername: req.body.servername,
+                ip: req.body.serverip,
+                port: req.body.serverport,
+                website: req.body.websiteurl,
+                discord: req.body.discordurl,
+                tags: tags,
+                banner: result.Key,
+                description: req.body.serverdesc,
+                timeAdded: day + "/" + ++month + "/" + year,
+                lastBump: date.getHours() + "/" + day + "/" + month
+            });
+        } else {
+            server = await ServerDB.create({
+                owner: session.userid,
+                version: req.body.version,
+                servername: req.body.servername,
+                ip: req.body.serverip,
+                website: req.body.websiteurl,
+                discord: req.body.discordurl,
+                tags: tags,
+                banner: result.Key,
+                description: req.body.serverdesc,
+                timeAdded: day + "/" + ++month + "/" + year,
+                lastBump: date.getHours() + "/" + day + "/" + month
+            });
+        }
+
 
         res.redirect(`/servers/profile/${server.ID}`);
     }
@@ -89,7 +109,7 @@ exports.editServer = async (req, res) => {
         tags: tags,
         description: req.body.serverdesc
     })
-    res.redirect(`/user/servers/${session.userid}`);
+    res.redirect(`/servers/profile/${server.ID}`);
 }
 exports.serverProfile = async (req, res) => {
     var session = req.app.sessions;
@@ -102,4 +122,9 @@ exports.getAllServers = async (filter) => {
         const servers = await ServerDB.findAll();
         return servers;
     }
+}
+exports.serverVoteGet = async (req, res) => {
+    var session = req.app.sessions;
+    const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
+    res.render('server/vote', { loggedIn: session.userid, server: server });
 }
