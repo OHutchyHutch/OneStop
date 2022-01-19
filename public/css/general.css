@@ -75,4 +75,16 @@ a:hover {
     color: var(--bluestatic) !important;
     border-color: var(--bluestatic);
 }
-
+.ip {
+    background-color: var(--bluestatic);
+}
+.ip:hover {
+    background-color: var(--bluehighlight);
+}
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > thead > tr > td,
+.table {
+    border-bottom: 0;
+    border-top: 0;
+}
