@@ -32,18 +32,21 @@
                                                     <img src="/serverbanners/<%- server.banner -%>" id="banner" alt="18d10cb44bc181199f4aa3e3c2ff2f03.gif" class="rounded-top img-fluid">
                                                 </a>
                                             </div>
-                                            <div class= "p-1 flex-row ip text-white" onclick="copyToClipboard(`ip<%- server.ID -%>`)" id="ip<%- server.ID -%>">
-                                                    <% if (server.port) { %>
+                                            <% if (server.port) { %>
+                                                <div class= "p-1 flex-row ip text-white" onclick="copyToClipboard(`<%- server.ip -%>:<%- server.port -%>`,`ip<%- server.ID -%>`)" id="ip<%- server.ID -%>">
+                                                    <span>
                                                         <%- server.ip -%>:<%- server.port -%>
                                                         <i class="bi bi-clipboard float-end pe-1" id="clipboard"></i>
-                                                    <% } else { %>
+                                                    </span>
+                                                </div>
+                                            <% } else { %>
+                                                <div class= "p-1 flex-row ip text-white" onclick="copyToClipboard(`<%- server.ip -%>`,`ip<%- server.ID -%>`)" id="ip<%- server.ID -%>">
+                                                    <span>
                                                         <%- server.ip -%>
                                                         <i class="bi bi-clipboard float-end pe-1" id="clipboard"></i>
-                                                    <% } %>
-                                                </button>
-                                                
-                                            </div>
-                                            
+                                                    </span>
+                                                </div>
+                                            <% } %>
                                         </div>
                                     </td>
                                     <td class="text-center">
