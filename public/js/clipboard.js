@@ -22,9 +22,14 @@ async function copyToClipboard(value, element) {
     // Remove it from the body
     document.body.removeChild(aux);
     var el = document.querySelector(`#${element} #clipboard`);
+    var txtel = document.querySelector(`#${element} #copiedtext`);
     el.classList.remove('bi-clipboard');
     el.classList.add('bi-clipboard-check');
+    txtel.innerHTML = "IP Copied";
+    txtel.classList.add("me-1");
     await sleep(2000);
+    txtel.innerHTML = "";
+    txtel.classList.remove("me-1");
     el.classList.remove('bi-clipboard-check');
     el.classList.add('bi-clipboard');
 

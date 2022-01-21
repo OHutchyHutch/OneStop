@@ -22,7 +22,9 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allownull: false,
         },
-        port: DataTypes.STRING,
+        token: DataTypes.STRING,
+        tokenport: DataTypes.STRING,
+        port: DataTypes.INTEGER,
         website: DataTypes.STRING,
         discord: DataTypes.STRING,
         tags: DataTypes.STRING,
@@ -30,10 +32,13 @@ module.exports = function (sequelize, DataTypes) {
         description: DataTypes.STRING,
         status: DataTypes.BOOLEAN,
         playercount: DataTypes.STRING,
-        votes: DataTypes.INTEGER,
+        votes: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
         isPremium: {
             type: DataTypes.BOOLEAN,
-            default: 0
+            defaultValue: false
         },
         sponsoredSlot: DataTypes.BOOLEAN,
         timeAdded: {

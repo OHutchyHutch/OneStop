@@ -34,6 +34,8 @@ exports.addServerPOST = async (req, res) => {
                 tags: tags,
                 banner: result.Key,
                 description: req.body.serverdesc,
+                token: req.body.token,
+                tokenport: req.body.tokenport,
                 timeAdded: day + "/" + ++month + "/" + year,
                 lastBump: date.getHours() + "/" + day + "/" + month
             });
@@ -48,6 +50,8 @@ exports.addServerPOST = async (req, res) => {
                 tags: tags,
                 banner: result.Key,
                 description: req.body.serverdesc,
+                token: req.body.token,
+                tokenport: req.body.tokenport,
                 timeAdded: day + "/" + ++month + "/" + year,
                 lastBump: date.getHours() + "/" + day + "/" + month
             });
@@ -107,6 +111,8 @@ exports.editServer = async (req, res) => {
         website: req.body.websiteurl,
         discord: req.body.discordurl,
         tags: tags,
+        token: req.body.token,
+        tokenport: req.body.tokenport,
         description: req.body.serverdesc
     })
     res.redirect(`/servers/profile/${server.ID}`);
@@ -122,9 +128,4 @@ exports.getAllServers = async (filter) => {
         const servers = await ServerDB.findAll();
         return servers;
     }
-}
-exports.serverVoteGet = async (req, res) => {
-    var session = req.app.sessions;
-    const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
-    res.render('server/vote', { loggedIn: session.userid, server: server });
 }

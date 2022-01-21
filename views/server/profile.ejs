@@ -18,7 +18,13 @@
         
     </div>
     <div class="container mt-5">
+        
         <div class="row">
+            <% if (locals.voted) { %>
+                <div class="alert alert-success text-center mt-3" role="alert">
+                    <i class="bi mx-2 bi-exclamation-triangle-fill"></i>You have successfully voted for <%- server.servername %>
+                </div>
+            <% } %> 
             <div class="col-sm-12">
     
                 <div class="card border-0 shadow-sm mb-3">
@@ -76,7 +82,7 @@
                                     <small class="text-muted">Server IP</small>
                                     <h6 class="mb-0">
                                         
-                                        <% if (server.port !== null || server.port !== undefined) { %>
+                                        <% if (server.port) { %>
                                             <%- server.ip %>:<%- server.port %>
                                         <% } else { %>
                                             <%- server.ip %>
@@ -87,7 +93,7 @@
     
                             <div class="card shadow-sm border-0 mb-3">
                                 <div class="card-body">
-                                    <small class="text-muted">Player Count</small>
+                                    <small class="text-muted">Players Online</small>
                                     <h6 class="mb-0">
                                         <%- server.playercount %>
                                     </h6>

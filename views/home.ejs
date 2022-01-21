@@ -36,14 +36,14 @@
                                                 <div class= "p-1 flex-row ip text-white" onclick="copyToClipboard(`<%- server.ip -%>:<%- server.port -%>`,`ip<%- server.ID -%>`)" id="ip<%- server.ID -%>">
                                                     <span>
                                                         <%- server.ip -%>:<%- server.port -%>
-                                                        <i class="bi bi-clipboard float-end pe-1" id="clipboard"></i>
+                                                        <i class="bi bi-clipboard float-end pe-1" id="clipboard"></i><i id="copiedtext" class="float-end"></i>
                                                     </span>
                                                 </div>
                                             <% } else { %>
                                                 <div class= "p-1 flex-row ip text-white" onclick="copyToClipboard(`<%- server.ip -%>`,`ip<%- server.ID -%>`)" id="ip<%- server.ID -%>">
                                                     <span>
                                                         <%- server.ip -%>
-                                                        <i class="bi bi-clipboard float-end pe-1" id="clipboard"></i>
+                                                        <i class="bi bi-clipboard float-end pe-1" id="clipboard"></i><i id="copiedtext" class="float-end"></i>
                                                     </span>
                                                 </div>
                                             <% } %>

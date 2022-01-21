@@ -41,7 +41,8 @@ router.post('/servers/add', upload.single('serverbanner'), serverController.addS
 router.get('/servers/delete/:serverid', serverController.deleteServer);
 router.get('/servers/edit/:serverid', serverController.editServerGet);
 router.post('/servers/edit/:serverid', upload.single('serverbanner'), serverController.editServer);
-router.get('/servers/vote/:serverid', serverController.serverVoteGet);
+router.get('/servers/vote/:serverid', statusController.serverVoteGet);
+router.post('/servers/vote/:serverid', statusController.serverVotePost);
 router.get('/serverbanners/:key', (req, res) => { bucketController.getFile(req.params.key).pipe(res) });
 router.get('/admin', function (req, res) { res.render('admin/loginadmin') });
 router.post('/admin', adminController.login)

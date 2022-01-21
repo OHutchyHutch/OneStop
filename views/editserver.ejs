@@ -20,7 +20,7 @@
                             <h2 class="fw-bold mb-4">ADD A SERVER</h2>
                             <div class="row mb-2">
                                 <div class="col-lg-2">
-                                    <label>Version</label>
+                                    <label>Version*</label>
                                     <select class="form-control form-control-lg" name="version" value="<%- server.version -%>">
                                         <% versions.forEach(versions => { %>
                                             <option value=<%-versions %>><%-versions %></option>
@@ -28,13 +28,13 @@
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <label>Server Name</label>
-                                    <input class="form-control form-control-lg" type="text" name="servername" value="<%-server.servername-%>"/>
+                                    <label>Server Name*</label>
+                                    <input class="form-control form-control-lg" type="text" name="servername" minlength="3" maxlength="20" value="<%-server.servername-%>"/>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-lg-10">
-                                    <label>Server IP</label>
+                                    <label>Server IP*</label>
                                     <input required type="text" name="serverip" id="serverip"
                                         class="form-control form-control-lg mb-4" value="<%- server.ip -%>"/>
                                 </div>
@@ -46,14 +46,26 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col">
-                                    <label>Website URL (Optional)</label>
+                                    <label>Website URL</label>
                                     <input type="url" name="websiteurl" id="websiteurl"
                                         class="form-control form-control-lg mb-4" value="<%- server.website -%>"/>
                                 </div>
                                 <div class="col">
-                                    <label>Discord URL (Optional)</label>
+                                    <label>Discord URL</label>
                                     <input type="url" name="discordurl" id="discordurl"
                                         class="form-control form-control-lg mb-4" value="<%- server.discord -%>"/>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <label>Votifier Token</label>
+                                    <input type="text" name="token" id="token"
+                                        class="form-control form-control-lg mb-4" minlength="0" maxlength="256" value="<%- server.token -%>"/>
+                                </div>
+                                <div class="col">
+                                    <label>Votifier Port</label>
+                                    <input type="text" name="tokenport" id="tokenport"
+                                        class="form-control form-control-lg mb-4" minlength="0" maxlength="8" value="<%- server.tokenport -%>"/>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -114,7 +126,7 @@
                             <h2 class="fw-bold mb-4">ADD A SERVER</h2>
                             <div class="row mb-2">
                                 <div class="col-lg-2">
-                                    <label>Version</label>
+                                    <label>Version*</label>
                                     <select class="form-control form-control-lg" name="version">
                                         <% versions.forEach(versions => { %>
                                             <option value=<%-versions %>><%-versions %></option>
@@ -122,13 +134,13 @@
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <label>Server Name</label>
-                                    <input class="form-control form-control-lg" type="text" name="servername" />
+                                    <label>Server Name*</label>
+                                    <input required class="form-control form-control-lg" type="text" minlength="3" maxlength="20" name="servername" />
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-lg-10">
-                                    <label>Server IP</label>
+                                    <label>Server IP*</label>
                                     <input required type="text" name="serverip" id="serverip"
                                         class="form-control form-control-lg mb-4" />
                                 </div>
@@ -140,14 +152,26 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col">
-                                    <label>Website URL (Optional)</label>
+                                    <label>Website URL</label>
                                     <input type="url" name="websiteurl" id="websiteurl"
                                         class="form-control form-control-lg mb-4" />
                                 </div>
                                 <div class="col">
-                                    <label>Discord URL (Optional)</label>
+                                    <label>Discord URL</label>
                                     <input type="url" name="discordurl" id="discordurl"
                                         class="form-control form-control-lg mb-4" />
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <label>Votifier Token</label>
+                                    <input  type="text" name="token" id="token"
+                                        class="form-control form-control-lg mb-4" minlength="0" maxlength="256" value=""/>
+                                </div>
+                                <div class="col">
+                                    <label>Votifier Port</label>
+                                    <input type="text" name="tokenport" id="tokenport"
+                                        class="form-control form-control-lg mb-4" minlength="0" maxlength="8" value=""/>
                                 </div>
                             </div>
                             <div class="row mb-2">
