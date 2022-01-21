@@ -1,6 +1,5 @@
 const express = require('express')
 const routes = require('./routes/slughandler');
-const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const app = express();
 
@@ -15,13 +14,12 @@ app.use(express.static(__dirname + '/node_modules/bootstrap-icons'));
 app.use(express.static(__dirname + '/node_modules/bootstrap5-tags'));
 app.use(express.json());
 app.use('/', routes);
-app.use(cookieParser());
 
 const thirtyDays = 1000 * 60 * 60 * 24 * 30;
 app.use(sessions({
   secret: "iuoashdiauosdbabwyqx58924asde",
   saveUninitialized: true,
-  cookie: { maxAge: thirtyDays },
+  cookie: { maxAge: thirtyDays, secure: true },
   resave: false
 }));
 
@@ -46,5 +44,4 @@ async function createServer() {
 }
 
 app.sessions = sessions;
-app.cookieParser = cookieParser;
 app.app = app;
