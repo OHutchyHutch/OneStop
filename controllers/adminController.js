@@ -5,7 +5,7 @@ require('dotenv').config()
 const key = process.env.ADMIN_KEY;
 
 exports.access = async (req, res) => {
-    var session = req.app.sessions;
+    var session = req.session;
     if (await hasAccess(session.userid)) {
         res.render('admin/dashboard')
     } else {
@@ -16,13 +16,13 @@ exports.access = async (req, res) => {
 exports.login = async (req, res) => {
     const user = await UserDB.findOne({ where: { isAdmin: true, email: req.body.email.toLowerCase(), password: req.body.password } });
     if (user !== null) {
-        var session = req.app.sessions;
+        var session = req.session;
         session.userid = user.ID;
         if (req.body.key === key) res.redirect('admin/dashboard')
     }
 }
 exports.database = async (req, res) => {
-    var session = req.app.sessions;
+    var session = req.session;
     if (await hasAccess(session.userid) == false) {
         res.redirect('/admin')
     }

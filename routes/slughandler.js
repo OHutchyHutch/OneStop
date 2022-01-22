@@ -1,7 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const db = require('../models');
+const session = require('express-session');
+var SequelizeStore = require("connect-session-sequelize")(session.Store);
 
+const store = new SequelizeStore({ db: db.sequelize });
+router.use(session({
+    secret: "keyboard cat",
+    saveUninitialized: false,
+    store,
+    resave: false
+}));
 
 const upload = multer({ dest: './models/tmpbanners' });
 const bucketController = require('../controllers/bucketController');
@@ -11,17 +21,10 @@ const serverController = require('../controllers/serverController');
 const adminController = require('../controllers/adminController');
 const statusController = require('../controllers/statusController');
 
-//Global Variables
-var [session, user] = [undefined];
 
 router.get('/', async (req, res) => {
-    session = req.app.sessions;
     var servers = await serverController.getAllServers();
-    if (session.userid && !user) {
-        user = await userController.getUserByID(session.userid);
-        res.render('home', { loggedIn: session.userid, servers: servers });
-    }
-    else res.render('home', { loggedIn: session.userid, servers: servers });
+    res.render('home', { loggedIn: req.session.isAuth, servers: servers });
 });
 
 router.get('/login', function (req, res) {
@@ -49,9 +52,9 @@ router.post('/admin', adminController.login)
 router.get('/admin/dashboard', adminController.access)
 router.get('/admin/dashboard/database', adminController.database)
 router.post('/admin/dashboard/tags', adminController.saveTags)
-router.get('*', function (req, res) {
-    var session = req.app.sessions;
-    res.render('404', { loggedIn: session.userid });
-});
+// router.get('*', function (req, res) {
+//     var session = req.app.sessions;
+//     res.render('404', { loggedIn: session.userid });
+// });
 
 module.exports = router;

@@ -42,12 +42,12 @@ function formatInteger(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 exports.serverVoteGet = async (req, res) => {
-    var session = req.app.sessions;
+    var session = req.session;
     const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
     res.render('server/vote', { loggedIn: session.userid, server: server });
 }
 exports.serverVotePost = async (req, res) => {
-    var session = req.app.sessions;
+    var session = req.session;
     console.log(req.body.username, req.params.serverid)
     const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
     util.sendVote(server.ip, parseInt(server.tokenport), {

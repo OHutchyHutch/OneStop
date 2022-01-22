@@ -1,5 +1,6 @@
 exports.endSession = (req, res) => {
-    var session = req.app.sessions;
-    session.userid = null;
-    res.redirect('/');
+    req.session.isAuth = false;
+    req.session.save(function (err) {
+        res.redirect('/');
+    })
 }

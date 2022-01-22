@@ -10,7 +10,7 @@ exports.addServerPOST = async (req, res) => {
     const day = date.getDate();
     var month = date.getMonth();
     const year = date.getFullYear();
-    var session = req.app.sessions;
+    var session = req.session;
     var server;
     if (req.body.serverport) server = await ServerDB.findOne({ where: { ip: req.body.serverip, port: req.body.serverport } })
     else server = await ServerDB.findOne({ where: { ip: req.body.serverip } })
@@ -62,7 +62,7 @@ exports.addServerPOST = async (req, res) => {
     }
 }
 exports.addServerGET = async (req, res) => {
-    var session = req.app.sessions;
+    var session = req.session;
     let alert = req.query.alert;
     const data = await MinecraftServerDB.findOne();
     let versions = (data.versions).split(',')
@@ -73,7 +73,7 @@ exports.findServersByUser = async (userid) => {
     return await ServerDB.findAll({ where: { owner: userid } });;
 }
 exports.deleteServer = async (req, res) => {
-    var session = req.app.sessions;
+    var session = req.session;
     if (!session.userid) res.redirect("/")
     else {
         var server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: session.userid } });
@@ -87,7 +87,7 @@ exports.deleteServer = async (req, res) => {
     }
 }
 exports.editServerGet = async (req, res) => {
-    var session = req.app.sessions;
+    var session = req.session;
     if (!session.userid) res.redirect("/")
     else {
         const data = await MinecraftServerDB.findOne();
@@ -101,7 +101,7 @@ exports.editServerGet = async (req, res) => {
 }
 exports.editServer = async (req, res) => {
     //TODO: Get banner and display it. If different, replace.
-    var session = req.app.sessions;
+    var session = req.session;
     const server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: session.userid } });
     const tags = (req.body.tags).toString();
     await server.update({
@@ -118,7 +118,7 @@ exports.editServer = async (req, res) => {
     res.redirect(`/servers/profile/${server.ID}`);
 }
 exports.serverProfile = async (req, res) => {
-    var session = req.app.sessions;
+    var session = req.session;
     session = session.userid;
     const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
     res.render('server/profile', { server: server, loggedIn: session })

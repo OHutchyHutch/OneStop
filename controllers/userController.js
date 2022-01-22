@@ -1,4 +1,5 @@
 const db = require('../models');
+const bcrypt = require('bcryptjs');
 const userDB = db.UserDB;
 const serverController = require('../controllers/serverController');
 
@@ -7,7 +8,8 @@ exports.newUser = async (req, res) => {
         res.redirect('/createaccount?alert=emailalreadyinuse');
     }
     else {
-        var user = await userDB.create({ email: req.body.email.toLowerCase(), password: req.body.password });
+        const hashedPswd = await bcrypt.hash(req.body.password, 12);
+        var user = await userDB.create({ email: req.body.email.toLowerCase(), password: hashedPswd });
         if (user.ID == 1) user.update({ isAdmin: true });
         res.redirect('/login?alert=accountcreated');
     }
@@ -15,11 +17,16 @@ exports.newUser = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-    const user = await userDB.findOne({ where: { email: req.body.email.toLowerCase(), password: req.body.password } });
-    if (user !== null) {
-        var session = req.app.sessions;
-        session.userid = user.ID;
-        res.redirect('/');
+
+    const user = await userDB.findOne({ where: { email: req.body.email.toLowerCase() } });
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    if (user !== null && isMatch) {
+        req.session.isAuth = true;
+        req.session.userid = user.ID;
+        req.session.save(function (err) {
+            res.redirect('/');
+        })
+
     } else {
         res.redirect('/login?alert=accountnotfound');
     }
@@ -39,7 +46,7 @@ async function userExists() {
 }
 
 exports.getServersOwnedByUser = async (req, res) => {
-    var session = req.app.sessions;
+    var session = req.session;
     if (session.userid) {
         const servers = await serverController.findServersByUser(session.userid)
         res.render('user/profile', { loggedIn: session.userid, servers: servers })
@@ -47,7 +54,7 @@ exports.getServersOwnedByUser = async (req, res) => {
     else res.render('user/login', { alert: "notlogged" });
 }
 exports.getUserSettings = async (req, res) => {
-    var session = req.app.sessions;
+    var session = req.session;
     if (session.userid) {
         const user = await userDB.findOne({ where: { ID: session.userid } })
         res.render('user/accountsettings', { loggedIn: session.userid, user: user })
