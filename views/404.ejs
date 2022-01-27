@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>404 Error</title>
-</head>
+    <head>
+        <title>404 Error</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+    </head>
 
-<body>
-    <% if (loggedIn) { %>
+    <body>
+        <% if (loggedIn) { %>
         <%- include('components/loggedinnavbar') %>
     <% } else { %>
         <%- include('components/navbar') %>
