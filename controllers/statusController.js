@@ -44,7 +44,12 @@ function formatInteger(number) {
 exports.serverVoteGet = async (req, res) => {
     var session = req.session;
     const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
-    res.render('server/vote', { loggedIn: session.userid, server: server });
+    if (server.token != '') {
+        res.render('server/vote', { loggedIn: session.userid, server: server });
+    } else {
+        res.render('server/profile', { server: server, loggedIn: session })
+    }
+
 }
 exports.serverVotePost = async (req, res) => {
     var session = req.session;

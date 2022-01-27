@@ -17,10 +17,14 @@ exports.addServerPOST = async (req, res) => {
     if (server !== null) {
         res.redirect('add?alert=serveralreadyadded');
     } else {
-        const file = req.file;
-        const result = await bucketController.uploadFile(file);
+        let result = null;
+        if (req.file) {
+            const file = req.file;
+            result = await bucketController.uploadFile(file);
+            await unlinkFile(file.path)
+        }
         const tags = (req.body.tags).toString();
-        await unlinkFile(file.path)
+
         var server;
         if (req.body.serverport) {
             server = await ServerDB.create({
@@ -79,9 +83,11 @@ exports.deleteServer = async (req, res) => {
         var server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: session.userid } });
         if (!server) res.redirect("/")
         else {
-            await bucketController.deleteFile(server.banner);
+            if (server.banner) {
+                await bucketController.deleteFile(server.banner);
+            }
             await server.destroy({ where: { ID: req.params.serverid, owner: session.userid } })
-            res.redirect(`/user/servers/${session.userid}`)
+            res.redirect(`/user/profile`)
         }
 
     }
@@ -104,17 +110,36 @@ exports.editServer = async (req, res) => {
     var session = req.session;
     const server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: session.userid } });
     const tags = (req.body.tags).toString();
-    await server.update({
-        servername: req.body.servername,
-        ip: req.body.serverip,
-        port: req.body.serverport,
-        website: req.body.websiteurl,
-        discord: req.body.discordurl,
-        tags: tags,
-        token: req.body.token,
-        tokenport: req.body.tokenport,
-        description: req.body.serverdesc
-    })
+    if (req.file) {
+        const file = req.file;
+        const result = await bucketController.uploadFile(file);
+        await server.update({
+            servername: req.body.servername,
+            ip: req.body.serverip,
+            port: req.body.serverport,
+            website: req.body.websiteurl,
+            discord: req.body.discordurl,
+            tags: tags,
+            banner: result.Key,
+            token: req.body.token,
+            tokenport: req.body.tokenport,
+            description: req.body.serverdesc
+        })
+    }
+    else {
+        await server.update({
+            servername: req.body.servername,
+            ip: req.body.serverip,
+            port: req.body.serverport,
+            website: req.body.websiteurl,
+            discord: req.body.discordurl,
+            tags: tags,
+            token: req.body.token,
+            tokenport: req.body.tokenport,
+            description: req.body.serverdesc
+        })
+    }
+
     res.redirect(`/servers/profile/${server.ID}`);
 }
 exports.serverProfile = async (req, res) => {
