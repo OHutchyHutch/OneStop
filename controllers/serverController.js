@@ -151,26 +151,21 @@ exports.serverProfile = async (req, res) => {
 exports.getAllServers = async (filter, param) => {
     switch (filter) {
         case 'version':
-            var servers = await ServerDB.findAll({ where: { version: param } })
-            return servers;
+            return await ServerDB.findAll({ where: { version: param } })
             break;
         case 'sortedBy':
             switch (param) {
                 case 'votes':
-                    var servers = await ServerDB.findAll({ order: [['votes', 'DESC']] })
-                    return servers;
+                    return await ServerDB.findAll({ order: [['votes', 'DESC']] })
                     break;
                 case 'players':
-                    var servers = await ServerDB.findAll({ order: [['playercount', 'DESC']] })
-                    return servers;
+                    return await ServerDB.findAll({ order: [['playercount', 'DESC']] })
                     break;
                 case 'mostrecent':
-                    var servers = await ServerDB.findAll({ order: [['lastBump', 'DESC']] })
-                    return servers;
+                    return await ServerDB.findAll({ order: [['lastBump', 'DESC']] })
                     break;
             }
         default:
-            var servers = await ServerDB.findAll({ order: [['votes', 'DESC']] })
-            return servers;
+            return await ServerDB.findAll({ order: [['votes', 'DESC']] })
     }
 }

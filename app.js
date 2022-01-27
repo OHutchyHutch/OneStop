@@ -1,7 +1,9 @@
-const express = require('express')
+const express = require('express');
+const compression = require('compression');
 const routes = require('./routes/slughandler');
 
 const app = express();
+app.use(compression())
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: true }))
