@@ -123,9 +123,29 @@ exports.serverProfile = async (req, res) => {
     const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
     res.render('server/profile', { server: server, loggedIn: session })
 }
-exports.getAllServers = async (filter) => {
-    if (filter == null) {
-        const servers = await ServerDB.findAll();
-        return servers;
+exports.getAllServers = async (filter, param) => {
+    switch (filter) {
+        case 'version':
+            var servers = await ServerDB.findAll({ where: { version: param } })
+            return servers;
+            break;
+        case 'sortedBy':
+            switch (param) {
+                case 'votes':
+                    var servers = await ServerDB.findAll({ order: [['votes', 'DESC']] })
+                    return servers;
+                    break;
+                case 'players':
+                    var servers = await ServerDB.findAll({ order: [['playercount', 'DESC']] })
+                    return servers;
+                    break;
+                case 'mostrecent':
+                    var servers = await ServerDB.findAll({ order: [['lastBump', 'DESC']] })
+                    return servers;
+                    break;
+            }
+        default:
+            var servers = await ServerDB.findAll({ order: [['votes', 'DESC']] })
+            return servers;
     }
 }

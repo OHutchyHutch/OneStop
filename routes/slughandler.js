@@ -24,8 +24,25 @@ const statusController = require('../controllers/statusController');
 
 router.get('/', async (req, res) => {
     var servers = await serverController.getAllServers();
-    res.render('home', { loggedIn: req.session.isAuth, servers: servers });
+    var tagData = await adminController.getTagData();
+    let versions = (tagData.versions).split(',');
+    let tags = (tagData.tags).split(',');
+    res.render('home', { loggedIn: req.session.isAuth, servers: servers, versions: versions, tags: tags, currentSort: 'Votes' });
 });
+router.get('/version/:version', async (req, res) => {
+    var servers = await serverController.getAllServers('version', req.params.version);
+    var tagData = await adminController.getTagData();
+    let versions = (tagData.versions).split(',');
+    let tags = (tagData.tags).split(',');
+    res.render('home', { loggedIn: req.session.isAuth, servers: servers, versions: versions, tags: tags, currentSort: 'Votes' });
+})
+router.get('/sortedBy/:params', async (req, res) => {
+    var servers = await serverController.getAllServers('sortedBy', req.params.params);
+    var tagData = await adminController.getTagData();
+    let versions = (tagData.versions).split(',');
+    let tags = (tagData.tags).split(',');
+    res.render('home', { loggedIn: req.session.isAuth, servers: servers, versions: versions, tags: tags, currentSort: req.params.params });
+})
 
 router.get('/login', function (req, res) {
     req.query.alert ? res.render('user/login', { alert: req.query.alert }) : res.render('user/login')
