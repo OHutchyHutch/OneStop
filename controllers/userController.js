@@ -17,7 +17,6 @@ exports.newUser = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-
     const user = await userDB.findOne({ where: { email: req.body.email.toLowerCase() } });
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (user !== null && isMatch) {
@@ -47,17 +46,17 @@ async function userExists() {
 
 exports.getServersOwnedByUser = async (req, res) => {
     var session = req.session;
-    if (session.userid) {
-        const servers = await serverController.findServersByUser(session.userid)
-        res.render('user/profile', { loggedIn: session.userid, servers: servers })
+    if (req.session.userid) {
+        const servers = await serverController.findServersByUser(req.session.userid)
+        res.render('user/profile', { loggedIn: req.session.userid, servers: servers })
     }
     else res.render('user/login', { alert: "notlogged" });
 }
 exports.getUserSettings = async (req, res) => {
     var session = req.session;
-    if (session.userid) {
-        const user = await userDB.findOne({ where: { ID: session.userid } })
-        res.render('user/accountsettings', { loggedIn: session.userid, user: user })
+    if (req.session.userid) {
+        const user = await userDB.findOne({ where: { ID: req.session.userid } })
+        res.render('user/accountsettings', { loggedIn: req.session.userid, user: user })
     } else {
         res.render('user/login', { alert: "notlogged" });
     }

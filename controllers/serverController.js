@@ -24,44 +24,23 @@ exports.addServerPOST = async (req, res) => {
             await unlinkFile(file.path)
         }
         const tags = (req.body.tags).toString();
-
         var server;
-        if (req.body.serverport) {
-            server = await ServerDB.create({
-                owner: session.userid,
-                version: req.body.version,
-                servername: req.body.servername,
-                ip: req.body.serverip,
-                port: req.body.serverport,
-                website: req.body.websiteurl,
-                discord: req.body.discordurl,
-                tags: tags,
-                banner: result.Key,
-                description: req.body.serverdesc,
-                token: req.body.token,
-                tokenport: req.body.tokenport,
-                timeAdded: day + "/" + ++month + "/" + year,
-                lastBump: date.getHours() + "/" + day + "/" + month
-            });
-        } else {
-            server = await ServerDB.create({
-                owner: session.userid,
-                version: req.body.version,
-                servername: req.body.servername,
-                ip: req.body.serverip,
-                website: req.body.websiteurl,
-                discord: req.body.discordurl,
-                tags: tags,
-                banner: result.Key,
-                description: req.body.serverdesc,
-                token: req.body.token,
-                tokenport: req.body.tokenport,
-                timeAdded: day + "/" + ++month + "/" + year,
-                lastBump: date.getHours() + "/" + day + "/" + month
-            });
-        }
-
-
+        server = await ServerDB.create({
+            owner: session.userid,
+            version: req.body.version,
+            servername: req.body.servername,
+            ip: req.body.serverip,
+            port: req.body.serverport,
+            website: req.body.websiteurl,
+            discord: req.body.discordurl,
+            tags: tags,
+            banner: result.Key,
+            description: req.body.serverdesc,
+            token: req.body.token,
+            tokenport: req.body.tokenport,
+            timeAdded: day + "/" + ++month + "/" + year,
+            lastBump: date.getHours() + "/" + day + "/" + month
+        });
         res.redirect(`/servers/profile/${server.ID}`);
     }
 }
@@ -152,18 +131,14 @@ exports.getAllServers = async (filter, param) => {
     switch (filter) {
         case 'version':
             return await ServerDB.findAll({ where: { version: param } })
-            break;
         case 'sortedBy':
             switch (param) {
                 case 'votes':
                     return await ServerDB.findAll({ order: [['votes', 'DESC']] })
-                    break;
                 case 'players':
                     return await ServerDB.findAll({ order: [['playercount', 'DESC']] })
-                    break;
                 case 'mostrecent':
                     return await ServerDB.findAll({ order: [['lastBump', 'DESC']] })
-                    break;
             }
         default:
             return await ServerDB.findAll({ order: [['votes', 'DESC']] })

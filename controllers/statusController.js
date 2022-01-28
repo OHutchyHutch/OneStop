@@ -45,15 +45,14 @@ exports.serverVoteGet = async (req, res) => {
     var session = req.session;
     const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
     if (server.token != '') {
-        res.render('server/vote', { loggedIn: session.userid, server: server });
+        res.render('server/vote', { loggedIn: req.session.userid, server: server });
     } else {
-        res.render('server/profile', { server: server, loggedIn: session })
+        res.render('server/profile', { server: server, loggedIn: req.session.userid })
     }
 
 }
 exports.serverVotePost = async (req, res) => {
     var session = req.session;
-    console.log(req.body.username, req.params.serverid)
     const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
     util.sendVote(server.ip, parseInt(server.tokenport), {
         token: server.token, // the token configured in the server plugin
@@ -67,11 +66,7 @@ exports.serverVotePost = async (req, res) => {
     await server.update({
         votes: ++server.votes
     })
-    res.render('server/profile', { server: server, loggedIn: session, voted: true })
-}
-exports.sendVote = async (req, res) => {
-    console.log(req.body.username, req.body.serverid)
-
+    res.render('server/profile', { server: server, loggedIn: req.session.userid, voted: true })
 }
 
 setInterval(updateStatus, 1000 * 10);

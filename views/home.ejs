@@ -16,26 +16,22 @@
     <div class="container-fluid">
         <div class="row justify-content-center mt-5">
             <div class="col-lg-6 col-md-12 justify-content-center bg-dark">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="versionDropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
-                      All Versions
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="versionDropdownButton">
-                        <% versions.forEach(version => { %>
-                            <li><a class="dropdown-item" href="/version/<%- version %>"><%- version %> </a></li>
-                        <% }) %>
-                    </ul>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="sortedByDropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
-                      Sort By: <%- currentSort %>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="sortedByDropdownButton">
-                        <li><a class="dropdown-item" href="/sortedBy/votes">Votes</a></li>
-                        <li><a class="dropdown-item" href="/sortedBy/mostrecent">Most Recent</a></li>
-                        <li><a class="dropdown-item" href="/sortedBy/players">Players</a></li>
-                    </ul>
-                </div>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="versionDropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    All Versions
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="versionDropdownButton">
+                    <% versions.forEach(version => { %>
+                        <li><a class="dropdown-item" href="/version/<%- version %>"><%- version %> </a></li>
+                    <% }) %>
+                </ul>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="sortedByDropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort By: <%- currentSort %>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="sortedByDropdownButton">
+                    <li><a class="dropdown-item" href="/sortedBy/votes">Votes</a></li>
+                    <li><a class="dropdown-item" href="/sortedBy/mostrecent">Most Recent</a></li>
+                    <li><a class="dropdown-item" href="/sortedBy/players">Players</a></li>
+                </ul>
             </div>
         </div>
         <div class="row justify-content-center">

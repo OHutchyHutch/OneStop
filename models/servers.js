@@ -24,7 +24,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         token: DataTypes.STRING,
         tokenport: DataTypes.STRING,
-        port: DataTypes.INTEGER,
+        port: DataTypes.STRING,
         website: DataTypes.STRING,
         discord: DataTypes.STRING,
         tags: DataTypes.STRING,
