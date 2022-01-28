@@ -7,17 +7,16 @@ const unlinkFile = util.promisify(fs.unlink)
 
 exports.addServerPOST = async (req, res) => {
     const date = new Date();
-    const day = date.getDate();
-    var month = date.getMonth();
-    const year = date.getFullYear();
-    var session = req.session;
+    const time = [date.getDate(), date.getMonth(), date.getFullYear()];
     var server;
     if (req.body.serverport) server = await ServerDB.findOne({ where: { ip: req.body.serverip, port: req.body.serverport } })
     else server = await ServerDB.findOne({ where: { ip: req.body.serverip } })
-    if (server !== null) {
+    if (server) {
         res.redirect('add?alert=serveralreadyadded');
     } else {
-        let result = null;
+        let result = {
+            Key: null
+        };
         if (req.file) {
             const file = req.file;
             result = await bucketController.uploadFile(file);
@@ -26,7 +25,7 @@ exports.addServerPOST = async (req, res) => {
         const tags = (req.body.tags).toString();
         var server;
         server = await ServerDB.create({
-            owner: session.userid,
+            owner: req.session.userid,
             version: req.body.version,
             servername: req.body.servername,
             ip: req.body.serverip,
@@ -38,56 +37,51 @@ exports.addServerPOST = async (req, res) => {
             description: req.body.serverdesc,
             token: req.body.token,
             tokenport: req.body.tokenport,
-            timeAdded: day + "/" + ++month + "/" + year,
-            lastBump: date.getHours() + "/" + day + "/" + month
+            timeAdded: time[0] + "/" + ++time[1] + "/" + time[2],
+            lastBump: date.getHours() + "/" + time[0] + "/" + time[1]
         });
         res.redirect(`/servers/profile/${server.ID}`);
     }
 }
 exports.addServerGET = async (req, res) => {
-    var session = req.session;
-    let alert = req.query.alert;
     const data = await MinecraftServerDB.findOne();
     let versions = (data.versions).split(',')
     let tags = (data.tags).split(',')
-    session.userid ? res.render('editserver', { loggedIn: session.userid, alert: alert, versions: versions, tags: tags }) : res.render('user/login', { alert: "notlogged" });
+    req.session.userid ? res.render('editserver', { loggedIn: req.session.userid, alert: req.query.aler, versions: versions, tags: tags }) : res.render('user/login', { alert: "notlogged" });
 }
 exports.findServersByUser = async (userid) => {
     return await ServerDB.findAll({ where: { owner: userid } });;
 }
 exports.deleteServer = async (req, res) => {
-    var session = req.session;
-    if (!session.userid) res.redirect("/")
+    if (!req.session.userid) res.redirect("/")
     else {
-        var server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: session.userid } });
+        var server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: req.session.userid } });
         if (!server) res.redirect("/")
         else {
             if (server.banner) {
                 await bucketController.deleteFile(server.banner);
             }
-            await server.destroy({ where: { ID: req.params.serverid, owner: session.userid } })
+            await server.destroy({ where: { ID: req.params.serverid, owner: req.session.userid } })
             res.redirect(`/user/profile`)
         }
 
     }
 }
 exports.editServerGet = async (req, res) => {
-    var session = req.session;
-    if (!session.userid) res.redirect("/")
+    if (!req.session.userid) res.redirect("/")
     else {
         const data = await MinecraftServerDB.findOne();
         let dbversions = (data.versions).split(',')
         let dbtags = (data.tags).split(',')
-        const server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: session.userid } })
+        const server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: req.session.userid } })
         let versions = (server.version).split(',')
         let tags = (server.tags).split(',')
-        !server ? res.redirect("/") : res.render('editserver', { server: server, loggedIn: session.userid, versions: dbversions, tags: dbtags, serverversions: versions, servertags: tags });
+        !server ? res.redirect("/") : res.render('editserver', { server: server, loggedIn: req.session.userid, versions: dbversions, tags: dbtags, serverversions: versions, servertags: tags });
     }
 }
 exports.editServer = async (req, res) => {
     //TODO: Get banner and display it. If different, replace.
-    var session = req.session;
-    const server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: session.userid } });
+    const server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: req.session.userid } });
     const tags = (req.body.tags).toString();
     if (req.file) {
         const file = req.file;
@@ -122,10 +116,8 @@ exports.editServer = async (req, res) => {
     res.redirect(`/servers/profile/${server.ID}`);
 }
 exports.serverProfile = async (req, res) => {
-    var session = req.session;
-    session = session.userid;
     const server = await ServerDB.findOne({ where: { ID: req.params.serverid } })
-    res.render('server/profile', { server: server, loggedIn: session })
+    res.render('server/profile', { server: server, loggedIn: req.session.userid })
 }
 exports.getAllServers = async (filter, param) => {
     switch (filter) {
@@ -141,6 +133,7 @@ exports.getAllServers = async (filter, param) => {
                     return await ServerDB.findAll({ order: [['lastBump', 'DESC']] })
             }
         default:
-            return await ServerDB.findAll({ order: [['votes', 'DESC']] })
+            return await ServerDB.findAll({ order: [['votes', 'DESC']] });;;;;;;;;;;;
     }
 }
+

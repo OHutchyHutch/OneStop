@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-12 justify-content-center">
+            <div class="col-lg-6 col-md-12 col-sm-12 justify-content-center">
                 <table class="table mt-5 align-middle">
                     <thead class="bg-dark">
                         <tr>
@@ -51,18 +51,23 @@
                                         <div class="w-75 justify-content-center align-self-center align-items-center text-center" style="max-width: 468px;">
                                             <div class="flex-row">
                                                 <a href="/servers/profile/<%- server.ID -%>" >
-                                                    <img src="/serverbanners/<%- server.banner -%>" id="banner" class="rounded-top img-fluid">
+                                                    <% if (server.banner) { %>
+                                                        <img src="/serverbanners/<%- server.banner -%>" id="banner" class="rounded-top img-fluid">
+                                                    <% } else { %>
+                                                        <div style="border-style: solid; border-color: gray; border-width: 50%; height: 60px;" class="rounded-top img-fluid"></div>
+                                                    <% } %>
                                                 </a>
                                             </div>
+                                            <div class="text-nowrap"></div>
                                             <% if (server.port) { %>
-                                                <div class= "p-1 flex-row ip text-white" onclick="copyToClipboard(`<%- server.ip -%>:<%- server.port -%>`,`ip<%- server.ID -%>`)" id="ip<%- server.ID -%>">
+                                                <div class= "p-1 flex-row ip text-white text-truncate" onclick="copyToClipboard(`<%- server.ip -%>:<%- server.port -%>`,`ip<%- server.ID -%>`)" id="ip<%- server.ID -%>">
                                                     <span>
                                                         <%- server.ip -%>:<%- server.port -%>
                                                         <i class="bi bi-clipboard float-end pe-1" id="clipboard"></i><i id="copiedtext" class="float-end"></i>
                                                     </span>
                                                 </div>
                                             <% } else { %>
-                                                <div class= "p-1 flex-row ip text-white" onclick="copyToClipboard(`<%- server.ip -%>`,`ip<%- server.ID -%>`)" id="ip<%- server.ID -%>">
+                                                <div class= "p-1 flex-row ip text-white text-truncate" onclick="copyToClipboard(`<%- server.ip -%>`,`ip<%- server.ID -%>`)" id="ip<%- server.ID -%>">
                                                     <span>
                                                         <%- server.ip -%>
                                                         <i class="bi bi-clipboard float-end pe-1" id="clipboard"></i><i id="copiedtext" class="float-end"></i>
