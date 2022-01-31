@@ -11,7 +11,7 @@ const secretAccessKey = process.env.AWS_SECRET_KEY;
 const s3 = new S3({ region, accessKeyId, secretAccessKey })
 
 
-//uploads file to S3
+
 exports.uploadFile = function (file) {
     const fileStream = fs.createReadStream(file.path);
     const uploadParams = {
@@ -21,7 +21,7 @@ exports.uploadFile = function (file) {
     }
     return s3.upload(uploadParams).promise();
 }
-//donloads file to S3
+
 exports.getFile = function (fileKey) {
     const downloadParams = {
         Key: fileKey,

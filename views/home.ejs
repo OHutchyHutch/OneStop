@@ -4,18 +4,17 @@
     <head>
         <title>Home</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
-
     </head>
 
     <body>
         <% if (loggedIn) { %>
-        <%- include('components/loggedinnavbar') %>
-    <% } else { %>
-        <%- include('components/navbar') %>
-    <% } %>
+            <%- include('components/loggedinnavbar') %>
+        <% } else { %>
+            <%- include('components/navbar') %>
+        <% } %>
     <div class="container-fluid">
         <div class="row justify-content-center mt-5">
-            <div class="col-lg-6 col-md-12 justify-content-center bg-dark">
+            <div class="col-lg-6 col-md-12 justify-content-center bg-dark py-3">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="versionDropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
                     All Versions
                 </button>
@@ -79,9 +78,9 @@
                                     <td class="text-center">
                                         <% if (server.status) { %>
                                             <h6><span class="badge rounded-pill bg-success align-middle"><%- server.playercount -%> Online</span> </h6>
-                                            <% } else { %>
-                                                <h6><span class="badge rounded-pill bg-danger align-middle">OFFLINE</span> </h6>
-                                            <% } %>
+                                        <% } else { %>
+                                            <h6><span class="badge rounded-pill bg-danger align-middle">OFFLINE</span> </h6>
+                                        <% } %>
                                     </td>
                                 </tr>
                             <% }) %>

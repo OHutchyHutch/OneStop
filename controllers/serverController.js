@@ -23,7 +23,6 @@ exports.addServerPOST = async (req, res) => {
             await unlinkFile(file.path)
         }
         const tags = (req.body.tags).toString();
-        var server;
         server = await ServerDB.create({
             owner: req.session.userid,
             version: req.body.version,
@@ -45,9 +44,7 @@ exports.addServerPOST = async (req, res) => {
 }
 exports.addServerGET = async (req, res) => {
     const data = await MinecraftServerDB.findOne();
-    let versions = (data.versions).split(',')
-    let tags = (data.tags).split(',')
-    req.session.userid ? res.render('editserver', { loggedIn: req.session.userid, alert: req.query.aler, versions: versions, tags: tags }) : res.render('user/login', { alert: "notlogged" });
+    req.session.userid ? res.render('editserver', { loggedIn: req.session.userid, alert: req.query.alert, versions: (data.versions).split(','), tags: (data.tags).split(',') }) : res.render('user/login', { alert: "notlogged" });
 }
 exports.findServersByUser = async (userid) => {
     return await ServerDB.findAll({ where: { owner: userid } });;
@@ -55,7 +52,7 @@ exports.findServersByUser = async (userid) => {
 exports.deleteServer = async (req, res) => {
     if (!req.session.userid) res.redirect("/")
     else {
-        var server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: req.session.userid } });
+        const server = await ServerDB.findOne({ where: { ID: req.params.serverid, owner: req.session.userid } });
         if (!server) res.redirect("/")
         else {
             if (server.banner) {
